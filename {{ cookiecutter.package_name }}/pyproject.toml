@@ -1,0 +1,137 @@
+[build-system]
+requires = [
+  "setuptools>=62.1",
+  "setuptools_scm[toml]>=6.2",
+  "wheel",
+{%- if cookiecutter.use_compiled_extensions == 'y' %}
+  "extension-helpers",
+  "numpy>=1.25",
+  "cython"
+{% endif -%}
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ cookiecutter.module_name }}"
+description = "{{ cookiecutter.short_description }}"
+requires-python = ">={{ cookiecutter.minimum_python_version }}"
+readme = { file = "README.rst", content-type = "text/x-rst" }
+license = { file = "licenses/LICENSE.rst" }
+{%- if cookiecutter.author_name and cookiecutter.author_email %}
+authors = [
+  { name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}" },
+]
+{%- endif %}
+dependencies = [
+  {{- cookiecutter._install_requires -}}
+  "towncrier",
+  "cruft"
+]
+dynamic = ["version"]
+
+{% if cookiecutter.include_example_code == 'y' -%}
+[project.scripts]
+package_template_example = "{{ cookiecutter.module_name }}.example_mod:main"
+
+{% endif -%}
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-doctestplus",
+    "pytest-cov"
+]
+docs = [
+    "sphinx",
+    "sphinx-automodapi",
+]
+
+{%- if cookiecutter.project_url %}
+[project.urls]
+repository = "{{ cookiecutter.project_url }}"
+{%- endif %}
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+{% if cookiecutter.enable_dynamic_dev_versions == 'y' -%}
+exclude = ["{{ cookiecutter.module_name }}._dev*"]
+{%- endif %}
+
+[tool.setuptools_scm]
+{% if cookiecutter.enable_dynamic_dev_versions == 'y' -%}
+write_to = "{{ cookiecutter.module_name }}/_version.py"
+{%- else -%}
+write_to = "{{ cookiecutter.module_name }}/version.py"
+{%- endif %}
+
+[tool.pytest.ini_options]
+testpaths = [
+  "{{ cookiecutter.module_name }}",
+  "docs",
+]
+doctest_plus = "enabled"
+text_file_format = "rst"
+addopts = "--doctest-rst"
+
+[tool.coverage.run]
+omit = [
+ "{{ cookiecutter.module_name }}/_{{ cookiecutter._parent_project }}_init*",
+ "{{ cookiecutter.module_name }}/conftest.py",
+ "{{ cookiecutter.module_name }}/*setup_package*",
+ "{{ cookiecutter.module_name }}/tests/*",
+ "{{ cookiecutter.module_name }}/*/tests/*",
+ "{{ cookiecutter.module_name }}/extern/*",
+ "{{ cookiecutter.module_name }}/version*",
+ "*/{{ cookiecutter.module_name }}/_{{ cookiecutter._parent_project }}_init*",
+ "*/{{ cookiecutter.module_name }}/conftest.py",
+ "*/{{ cookiecutter.module_name }}/*setup_package*",
+ "*/{{ cookiecutter.module_name }}/tests/*",
+ "*/{{ cookiecutter.module_name }}/*/tests/*",
+ "*/{{ cookiecutter.module_name }}/extern/*",
+ "*/{{ cookiecutter.module_name }}/version*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+  # Don't complain about packages we have installed
+  "except ImportError",
+  # Don't complain if tests don't hit assertions
+  "raise AssertionError",
+  "raise NotImplementedError",
+  # Don't complain about script hooks
+  "def main(.*):",
+  # Ignore branches that don't pertain to this version of Python
+  "pragma: py{ignore_python_version}",
+  # Don't complain about IPython completion helper
+  "def _ipython_key_completions_",
+  # typing.TYPE_CHECKING is False at runtime
+  "if TYPE_CHECKING:",
+  # Ignore typing overloads
+  "@overload",
+]
+
+[tool.towncrier]
+filename = "CHANGES.rst"
+# Where you want your news files to come out, `NEWS.rst` is the default.
+# This can be .rst or .md, towncrier's default template works with both.
+# filename = "NEWS.rst"
+directory = "changes"
+package = "{{ cookiecutter.package_name }}"
+title_format = "{version} ({project_date})"
+ignore = [".gitkeep"]
+wrap = true
+issue_format = "`#{issue} <https://github.com/Roman-Supernova-PIT/{{ cookiecutter.package_name }}/issues/{issue}>`_"
+
+[[tool.towncrier.type]]
+directory = "general"
+name = "General"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "docs"
+name = "Documentation"
+showcontent = true
