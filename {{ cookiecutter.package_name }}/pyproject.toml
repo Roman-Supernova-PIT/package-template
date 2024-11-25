@@ -43,6 +43,11 @@ test = [
 docs = [
     "sphinx",
     "sphinx-automodapi",
+    "matplotlib",
+    "sphinx",
+    "sphinx-automodapi",
+    "tomli; python_version <\"3.11\"",
+    "tomllib; python_version >\"3.11\"",
 ]
 
 {%- if cookiecutter.project_url %}

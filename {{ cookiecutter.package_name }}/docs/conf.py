@@ -5,17 +5,61 @@
 # http://www.sphinx-doc.org/en/master/config
 
 import datetime
+import importlib
+import sys
+import os
+from pathlib import Path
+
+if sys.version_info < (3, 11):
+     import tomli as tomllib
+else:
+     import tomllib
+
+from packaging.version import Version
+from configparser import ConfigParser
+
+import sphinx
+
+from sphinx.ext.autodoc import AttributeDocumenter
 
 # -- Project information -----------------------------------------------------
 
 # The full version, including alpha/beta/rc tags
 from {{ cookiecutter.module_name }} import __version__
 
-release = __version__
+# The version info for the project you're documenting, acts as replacement for
+# |version| and |release|, also used in various other places throughout the
+# built documents.
+#
+# The short X.Y version.
+package = importlib.import_module(metadata['name'])
+try:
+    version = package.__version__.split('-', 1)[0]
+    
+    # The full version, including alpha/beta/rc tags.
+    release = package.__version__
+
+except AttributeError:
+    version = 'dev'
+    release = 'dev'
+
+
+# after you've used the package template, you can switch to these lines
+# to populate metadata from the pyproject.toml file so that changes are picked 
+# up for things in the project section of the toml
+with open(Path(__file__).parent.parent / "pyproject.toml", "rb") as metadata_file:
+    metadata = tomllib.load(metadata_file)['project']
+    
+# If your documentation needs a minimal Sphinx version, state it here.
+# needs_sphinx = '1.3'
+
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
 
 project = "{{ cookiecutter.package_name }}"
 author = "{{ cookiecutter.author_name }}"
 copyright = f"{datetime.datetime.now().year}, {author}"  # noqa: A001
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -57,7 +101,10 @@ default_role = 'py:obj'
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {"python": ("https://docs.python.org/", None)}
+intersphinx_mapping = {"python": ("https://docs.python.org/", None),
+                       'numpy': ('https://numpy.org/devdocs', None),
+                       'scipy': ('http://scipy.github.io/devdocs', None),
+                       'matplotlib': ('http://matplotlib.org/', None),}
 
 # -- Options for HTML output -------------------------------------------------
 
