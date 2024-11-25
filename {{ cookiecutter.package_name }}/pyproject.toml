@@ -1,11 +1,11 @@
 [build-system]
 requires = [
   "setuptools>=62.1",
-  "setuptools_scm[toml]>=6.2",
+  "setuptools_scm[tomli]>=6.2",
   "wheel",
 {%- if cookiecutter.use_compiled_extensions == 'y' %}
   "extension-helpers",
-  "numpy>=1.25",
+  "numpy>=1.26",
   "cython"
 {% endif -%}
 ]
@@ -46,8 +46,7 @@ docs = [
     "matplotlib",
     "sphinx",
     "sphinx-automodapi",
-    "tomli; python_version <\"3.11\"",
-    "tomllib; python_version >\"3.11\"",
+    "tomli"
 ]
 
 {%- if cookiecutter.project_url %}

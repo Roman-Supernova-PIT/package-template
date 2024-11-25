@@ -8,14 +8,8 @@ import datetime
 import importlib
 import sys
 import os
-from pathlib import Path
+import tomli
 
-if sys.version_info < (3, 11):
-     import tomli as tomllib
-else:
-     import tomllib
-
-from packaging.version import Version
 from configparser import ConfigParser
 
 import sphinx
@@ -24,41 +18,30 @@ from sphinx.ext.autodoc import AttributeDocumenter
 
 # -- Project information -----------------------------------------------------
 
-# The full version, including alpha/beta/rc tags
-from {{ cookiecutter.module_name }} import __version__
+# to populate metadata from the pyproject.toml file so that changes are picked 
+# up for things in the project section of the toml
+with open("../pyproject.toml", "rb") as metadata_file:
+    metadata = tomli.load(metadata_file)['project']
+    project = metadata['name']
+    author = metadata["authors"][0]["name"]
 
-# The version info for the project you're documenting, acts as replacement for
-# |version| and |release|, also used in various other places throughout the
-# built documents.
-#
-# The short X.Y version.
-package = importlib.import_module(metadata['name'])
+copyright = f'{datetime.datetime.today().year}, {author}'
+
+package = importlib.import_module(project)
 try:
     version = package.__version__.split('-', 1)[0]
-    
     # The full version, including alpha/beta/rc tags.
     release = package.__version__
-
 except AttributeError:
     version = 'dev'
     release = 'dev'
 
 
-# after you've used the package template, you can switch to these lines
-# to populate metadata from the pyproject.toml file so that changes are picked 
-# up for things in the project section of the toml
-with open(Path(__file__).parent.parent / "pyproject.toml", "rb") as metadata_file:
-    metadata = tomllib.load(metadata_file)['project']
-    
+
 # If your documentation needs a minimal Sphinx version, state it here.
 # needs_sphinx = '1.3'
-
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-
-project = "{{ cookiecutter.package_name }}"
-author = "{{ cookiecutter.author_name }}"
-copyright = f"{datetime.datetime.now().year}, {author}"  # noqa: A001
 
 
 # -- General configuration ---------------------------------------------------
@@ -124,7 +107,7 @@ html_theme_options = {
     'fixed_sidebar': True,
     'logo': "logo_black_filled.png",
     'logo_text_align': "left",
-    'description': "Roman Supernova PIT",
+    'description': "Software developed by the Roman SNPIT",
     'sidebar_width':'250px',
     'show_relbars':True,
 }
@@ -143,5 +126,21 @@ html_theme_options = {
 # the docs. For more options, see:
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autoclass_content
 autoclass_content = "both"
+numpydoc_show_class_members = False
+
+autosummary_generate = True
+
+automodapi_toctreedirnm = 'api'
 
 # -- Other options ----------------------------------------------------------
+# Render inheritance diagrams in SVG
+graphviz_output_format = "svg"
+
+graphviz_dot_args = [
+    '-Nfontsize=10',
+    '-Nfontname=Helvetica Neue, Helvetica, Arial, sans-serif',
+    '-Efontsize=10',
+    '-Efontname=Helvetica Neue, Helvetica, Arial, sans-serif',
+    '-Gfontsize=10',
+    '-Gfontname=Helvetica Neue, Helvetica, Arial, sans-serif'
+]

@@ -18,7 +18,7 @@
     ],
     "use_compiled_extensions": "n",
     "enable_dynamic_dev_versions": "y",
-    "include_example_code": "n",
+    "include_example_code": "y",
     "include_github_workflows": "y",
     "_sphinx_theme": "alabaster",
     "_parent_project": "",

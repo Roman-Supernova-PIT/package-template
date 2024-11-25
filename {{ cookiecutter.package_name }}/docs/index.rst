@@ -4,7 +4,7 @@
 
 This is the documentation for {{ cookiecutter.package_name }}.
 
-**Version**: |release|
+**Version**: |version|
 
 
 This package contains the Python software suite developed for use with the Roman Telescope project, as part of the Roman Supernova Project Implementation Team (PIT) project. 
