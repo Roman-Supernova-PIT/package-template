@@ -2,7 +2,7 @@ name: "Deploy Sphinx Package Documentation to Pages"
 
 on:
   push:
-    branches: [main] # branch to trigger deployment
+    branches: [gh-pages] # branch to trigger deployment
 
   workflow_dispatch:
 
