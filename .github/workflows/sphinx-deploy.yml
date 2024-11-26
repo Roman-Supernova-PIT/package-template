@@ -13,10 +13,10 @@ jobs:
       contents: write
     steps:
     - id: deployment
-      uses: sphinx-notes/pages@3a7b173ecba074b270b37c64007c1edfd8465892. # v3.1
+      uses: sphinx-notes/pages@3a7b173ecba074b270b37c64007c1edfd8465892 # v3.1
       with:
         publish: false
-    - uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e. #v4.0.0
+    - uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e #v4.0.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ steps.deployment.outputs.artifact }}
