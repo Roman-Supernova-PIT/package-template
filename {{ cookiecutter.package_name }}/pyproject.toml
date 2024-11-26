@@ -45,7 +45,6 @@ docs = [
     "sphinx-automodapi",
     "matplotlib",
     "sphinx",
-    "sphinx-automodapi",
     "tomli",
     "graphviz"
 ]
