@@ -46,7 +46,8 @@ docs = [
     "matplotlib",
     "sphinx",
     "sphinx-automodapi",
-    "tomli"
+    "tomli",
+    "graphviz"
 ]
 
 {%- if cookiecutter.project_url %}

@@ -27,7 +27,7 @@ documentation:
       - 'docs/**/*'
       - '*.md'
       - '.readthedocs.yaml'
-      - 'LICENSE'
+      - 'licenses/LICENSE.rst'
 
 installation:
   - changed-files:

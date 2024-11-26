@@ -10,7 +10,8 @@ complex.
 We strongly recommend using `setuptools_scm <https://github.com/pypa/setuptools_scm>`__ to do this.
 With a little effort and understanding it is possible to make the git history
 the single source of truth for all your version information, for your releases
-and any development installs.
+and any development installs. Using setuptools_scm is part of the default choices in the package
+template and will be active unless you choose otherwise.
 
 .. _setuptools-scm:
 

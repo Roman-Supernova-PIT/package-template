@@ -1,3 +1,4 @@
+name: "Dependabot Checks"
 version: 2
 updates:
 
@@ -9,7 +10,7 @@ updates:
     interval: weekly
   open-pull-requests-limit: 10
   reviewers:
-    - "sosey"
+    - "Roman-Supernova-PIT/software-admins"
   allow:
     - dependency-type: direct
     - dependency-type: indirect

@@ -54,6 +54,25 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ['_static']
 
 master_doc = 'index'
+
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+html_theme = "alabaster"
+html_static_path = ['_static']
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',
+        'searchbox.html',
+    ]
+}
+html_theme_options = {
+    'fixed_sidebar': True,
+    'logo': "logo_black_filled.png",
+    'logo_text_align': "left",
+    'sidebar_width':'250px',
+    'show_relbars':True,
+}

@@ -26,13 +26,12 @@ these files in turn.
 Assuming that you are planning to make your package open source, the most
 important file you will need to add to your package is an open source license.
 Many packages in the scientific Python ecosystem use the `3-clause BSD license
-<https://opensource.org/licenses/BSD-3-Clause>`_ and we recommend following
-this or using the `MIT license <https://opensource.org/licenses/MIT>`_
-unless you have a good reason not to.
+<https://opensource.org/licenses/BSD-3-Clause>`_ and the packages maintained by
+the Roman Supernova PIT group will too. If you have a good reason not to, please
+contact one of the software admins for the PIT.
 
-To include the license in your package, create a file called LICENSE
-and paste the license text into it, making sure that you update the
-copyright year, authors, and any other required fields
+The BSD 3-Clause license is included as part of the package template and will
+be created when you generate a new package.
 
 .. _readme:
 
@@ -44,8 +43,7 @@ what the package is, and either gives some information about how to install/use
 it or links to more extensive documentation. We recommend using the
 `reStructuredText (rst) <http://docutils.sourceforge.net/rst.html>`_ format for
 your README as this will ensure that the README gets rendered well online, e.g.
-on `GitHub <https://github.com>`_ or `GitLab <https://gitlab.com>`_ and on `PyPI
-<https://pypi.org>`_.
+on `GitHub <https://github.com>`_ or  `PyPI <https://pypi.org>`_.
 
 .. _package_init:
 
