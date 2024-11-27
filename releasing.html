@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Releasing Your Package &#8212; Roman Supernova PIT Python Packaging Guide  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=db0969fc" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command-line scripts" href="scripts.html" />
+    <link rel="prev" title="Compiled C/Cython extensions" href="extensions.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo_black_filled.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="minimal.html">Minimal package layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Documenting your Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tox.html">Running Commands with Tox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Compiled C/Cython extensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Releasing Your Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#incrementing-version-numbers">Incrementing Version Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-source-distributions">Building Source Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#publishing-to-pypi">Publishing to PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#releasing-from-branches">Releasing from Branches</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Command-line scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Including data in your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/index.html">Advanced Topics</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="extensions.html" title="previous chapter">Compiled C/Cython extensions</a></li>
+      <li>Next: <a href="scripts.html" title="next chapter">Command-line scripts</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="extensions.html" title="Previous document">Compiled C/Cython extensions</a>
+        </li>
+        <li>
+          <a href="scripts.html" title="Next document">Command-line scripts</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="releasing-your-package">
+<span id="releasing"></span><h1>Releasing Your Package<a class="headerlink" href="#releasing-your-package" title="Link to this heading">¶</a></h1>
+<p>In this section we will describe how to take your package and publish a release to PyPI.</p>
+<p>There are a lot of permutations on how to release your package, and depending on
+the size of your project you may need to build on this guide. The objective of
+this is to provide you with the basic information you need to release something
+built by following the rest of this guide.</p>
+<p>This section of the guide is assuming you configured <a class="reference external" href="https://pypi.org/project/setuptools-scm/">setuptools_scm</a> in the <a class="reference internal" href="minimal.html#minimal"><span class="std std-ref">Minimal package layout</span></a> guide. If
+you didn’t you will need to update your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file as well as using
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span></code>.</p>
+<section id="incrementing-version-numbers">
+<h2>Incrementing Version Numbers<a class="headerlink" href="#incrementing-version-numbers" title="Link to this heading">¶</a></h2>
+<p>When you are ready to release your package you need to give it a version number.
+A version number for a release should generally be of the form <code class="docutils literal notranslate"><span class="pre">X.Y.Z</span></code>, for
+full details on versioning Python packages see <a class="reference external" href="https://www.python.org/dev/peps/pep-0440/">PEP 440</a>. What meaning is conveyed by the
+version numbers is up to you, there are multiple different thoughts on this, for
+some examples see <a class="reference external" href="https://github.com/astropy/astropy-APEs/blob/master/APE2.rst">Astropy</a>, <a class="reference external" href="https://github.com/sunpy/sunpy-SEP/blob/master/SEP-0009.md">SunPy</a> or <a class="reference external" href="https://semver.org/">Semantic
+Versioning</a>.</p>
+<p>In this example we are going to release version <code class="docutils literal notranslate"><span class="pre">0.1.0</span></code> of our package
+<code class="docutils literal notranslate"><span class="pre">my_package</span></code>. When doing releases it is common practice to use <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">git tags</a> to identify the commit
+the release relates to in the history. By using <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> these tags
+become the reference for the version numbers of your Python package. This means
+you only have to increment your version number using git.</p>
+<p>To mark a new release of your package in your git history run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.1.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release version 0.1.0&quot;</span>
+</pre></div>
+</div>
+<p>Here we use the convention of prepending release tags with <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p>
+<p>If you now import your package and print <code class="docutils literal notranslate"><span class="pre">my_package.__version__</span></code> it should say
+<code class="docutils literal notranslate"><span class="pre">0.1.0</span></code>.</p>
+</section>
+<section id="building-source-distributions">
+<h2>Building Source Distributions<a class="headerlink" href="#building-source-distributions" title="Link to this heading">¶</a></h2>
+<p>Now you have tagged your release, you need to build what is called a “source
+distribution” to upload to <a class="reference external" href="https://pypi.org/">PyPI</a> or the Python Package
+Index. This is the place where tools like <code class="docutils literal notranslate"><span class="pre">pip</span></code> download packages from and is
+the primary place people will search for installable Python packages.</p>
+<p>The source distribution is a tarball of all the files needed by your package,
+which includes everything in your <code class="docutils literal notranslate"><span class="pre">my_package</span></code> directory as well as everything
+specified in your <a class="reference internal" href="minimal.html#manifest"><span class="std std-ref">MANIFEST.in</span></a> file.</p>
+<p>As we have setup a package with a <a class="reference internal" href="minimal.html#pyproject"><span class="std std-ref">pyproject.toml</span></a> file, we recommend you use the
+<a class="reference external" href="https://pypa-build.readthedocs.io/en/latest/">build</a> package to build your
+source  distribution in the isolated environment specified in <a class="reference internal" href="minimal.html#pyproject"><span class="std std-ref">pyproject.toml</span></a>.
+You can do this with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>build
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>build<span class="w"> </span>--sdist<span class="w"> </span>--outdir<span class="w"> </span>dist<span class="w"> </span>.
+</pre></div>
+</div>
+<p>This is equivalent to running the legacy <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span></code> but ensures
+that the state of your local environment does not affect the generated package.</p>
+</section>
+<section id="publishing-to-pypi">
+<h2>Publishing to PyPI<a class="headerlink" href="#publishing-to-pypi" title="Link to this heading">¶</a></h2>
+<p>Now you have created the sdist to be uploaded to PyPI you can upload it with the
+<a class="reference external" href="https://pypi.org/project/twine/">twine</a> package:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>twine
+<span class="gp">$ </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/my_package*.tar.gz
+</pre></div>
+</div>
+<p>This should ask you for your PyPI account details, and will create your project
+on PyPI if it doesn’t already exist.</p>
+</section>
+<section id="releasing-from-branches">
+<h2>Releasing from Branches<a class="headerlink" href="#releasing-from-branches" title="Link to this heading">¶</a></h2>
+<p>If your project is larger, you might want to create branches for each of your
+major release versions to make it easy to continue to support those releases
+with bug fixes while continuing development of your master branch.</p>
+<p>If you follow this pattern for your releases you will have to perform one extra
+step when using <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code>, which is to also increment the version with
+a tag on the master branch to indicate you have started to develop a new version
+on your master branch. To do this at the point where you branch for your
+upcoming release push a tag for <code class="docutils literal notranslate"><span class="pre">vX.Ydev</span></code> where <code class="docutils literal notranslate"><span class="pre">X.Y</span></code> is the version number
+of the next major release e.g. if you just branched for 1.1 you would create a
+<code class="docutils literal notranslate"><span class="pre">v1.2dev</span></code> tag.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="extensions.html" title="Previous document">Compiled C/Cython extensions</a>
+        </li>
+        <li>
+          <a href="scripts.html" title="Next document">Command-line scripts</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &#169;2024, Roman Supernova PIT.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/releasing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

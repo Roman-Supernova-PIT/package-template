@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Specifying the Version of your Package &#8212; Roman Supernova PIT Python Packaging Guide  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=db0969fc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Advanced Topics" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo_black_filled.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../minimal.html">Minimal package layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Documenting your Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Testing your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tox.html">Running Commands with Tox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions.html">Compiled C/Cython extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Releasing Your Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Command-line scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">Including data in your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ci.html">Continuous Integration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced Topics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Specifying the Version of your Package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Advanced Topics</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Advanced Topics</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="index.html" title="Previous document">Advanced Topics</a>
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="specifying-the-version-of-your-package">
+<span id="versions"></span><h1>Specifying the Version of your Package<a class="headerlink" href="#specifying-the-version-of-your-package" title="Link to this heading">¶</a></h1>
+<p>Synchronising the version information about your package between, the git
+repository, the python source code and the python package metadata can be
+complex.</p>
+<p>We strongly recommend using <a class="reference external" href="https://github.com/pypa/setuptools_scm">setuptools_scm</a> to do this.
+With a little effort and understanding it is possible to make the git history
+the single source of truth for all your version information, for your releases
+and any development installs. Using setuptools_scm is part of the default choices in the package
+template and will be active unless you choose otherwise.</p>
+<section id="setuptools-scm">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code><a class="headerlink" href="#setuptools-scm" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> is an extension to the <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> package, which performs two functions:</p>
+<ul class="simple">
+<li><p>It calculates the version number from the git history.</p></li>
+<li><p>It uses the git repository to get a list of all files to include in the package.</p></li>
+</ul>
+<p>This section is focusing on the first one, the second is discussed in <a class="reference internal" href="../data.html#data"><span class="std std-ref">Including data in your package</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> works by calling <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">git</span> <span class="pre">describe</span></code> which returns information
+about the current version of the repository, based on distance away from the
+last tag <strong>on the current branch</strong>.</p>
+<p>This means that with a little parsing, this information can be used to determine
+the version of the package at the point where you build packages to release them on
+PyPI (as described in <a class="reference internal" href="../releasing.html#releasing"><span class="std std-ref">Releasing Your Package</span></a>) or when someone accesses
+<code class="docutils literal notranslate"><span class="pre">my_package.__version__</span></code>.</p>
+<p>When just considering these built packages <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> works by running
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> at the time you build the package and then saving the output
+into the code (if configured) and metadata of the package. If you use the
+default configuration of the template included with this guide, after installing
+the package the contents of the <code class="docutils literal notranslate"><span class="pre">my_package/_version.py</span></code> file would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># coding: utf-8</span>
+<span class="c1"># file generated by setuptools_scm</span>
+<span class="c1"># don&#39;t change, don&#39;t track in version control</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.1.dev0&#39;</span>
+<span class="n">__version_tuple__</span> <span class="o">=</span> <span class="n">version_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;dev0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This file is used to provide the <code class="docutils literal notranslate"><span class="pre">__version__</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">my_package</span></code>.</p>
+</section>
+<section id="dynamic-development-versions">
+<span id="dev-versions"></span><h2>Dynamic Development Versions<a class="headerlink" href="#dynamic-development-versions" title="Link to this heading">¶</a></h2>
+<p>The final piece of this puzzle is versions for packages installed in “editable”
+mode from a git repository. By default when using <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> when you
+run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">./</span></code> in your git checkout, it will run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> and
+encode the current version into the <code class="docutils literal notranslate"><span class="pre">_version.py</span></code> file described above. The
+problem with this approach is that the version number in <code class="docutils literal notranslate"><span class="pre">_version.py</span></code> will
+not change, as you make new commits or even add new tags.</p>
+<p>The solution to this is to dynamically calculate the version on access of
+<code class="docutils literal notranslate"><span class="pre">__version__</span></code> with <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code>, however, you don’t want to do this for
+non-development installations as it’s slow and requires <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> to
+be installed.</p>
+<p>The solution to this implemented in the template (behind an opt-in option) is to
+make a subpackage called <cite>_dev</cite> which is not included in the dists (it is
+excluded in <code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code>) which invokes setuptools. This <code class="docutils literal notranslate"><span class="pre">_dev</span></code> package is
+then invoked by the <code class="docutils literal notranslate"><span class="pre">my_pacakge/version.py</span></code> file, which will fall back to
+reading the static version from <code class="docutils literal notranslate"><span class="pre">my_package/_version.py</span></code> file if it can’t
+access <code class="docutils literal notranslate"><span class="pre">_dev</span></code> (in the case where it’s not a dev install).</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="index.html" title="Previous document">Advanced Topics</a>
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &#169;2024, Roman Supernova PIT.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/advanced/versioning.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

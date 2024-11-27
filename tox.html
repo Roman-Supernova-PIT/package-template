@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Running Commands with Tox &#8212; Roman Supernova PIT Python Packaging Guide  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=db0969fc" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Compiled C/Cython extensions" href="extensions.html" />
+    <link rel="prev" title="Testing your package" href="tests.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo_black_filled.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="minimal.html">Minimal package layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Documenting your Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing your package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Commands with Tox</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-tox-running-tests">Getting Started with Tox: Running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-documentation-with-tox">Building Documentation with tox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-packages-with-compiled-extensions">Testing Packages with Compiled Extensions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Compiled C/Cython extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing Your Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Command-line scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Including data in your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/index.html">Advanced Topics</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="tests.html" title="previous chapter">Testing your package</a></li>
+      <li>Next: <a href="extensions.html" title="next chapter">Compiled C/Cython extensions</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="tests.html" title="Previous document">Testing your package</a>
+        </li>
+        <li>
+          <a href="extensions.html" title="Next document">Compiled C/Cython extensions</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="running-commands-with-tox">
+<span id="tox"></span><h1>Running Commands with Tox<a class="headerlink" href="#running-commands-with-tox" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://tox.readthedocs.io/en/latest/">Tox</a> is a general purpose tool for
+automating Python testing. We recommend using tox to specify the environments
+in which your tests are run, both locally and on <a class="reference internal" href="ci.html#ci"><span class="std std-ref">Continuous Integration</span></a> services.</p>
+<section id="getting-started-with-tox-running-tests">
+<h2>Getting Started with Tox: Running tests<a class="headerlink" href="#getting-started-with-tox-running-tests" title="Link to this heading">¶</a></h2>
+<p>The first thing to configure tox to do is to run the tests for a package. The
+most minimal tox file for a package following this guide is:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py38</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[testenv]</span>
+<span class="na">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest {posargs}</span>
+</pre></div>
+</div>
+<p>Let’s dig into the sections of this file, the <code class="docutils literal notranslate"><span class="pre">[tox]</span></code> section is the <a class="reference external" href="https://tox.readthedocs.io/en/latest/config.html#tox-global-settings">global
+configuration</a> for
+the whole file. We use this to define <code class="docutils literal notranslate"><span class="pre">envlist</span></code> which is a list of all the
+different builds configured in tox, here we set this to be a Python 3.8
+environment, we will expand on this shortly. The <code class="docutils literal notranslate"><span class="pre">isolated_build</span></code>
+configuration option configures tox to build your source distribution in the
+same manner as recommended in <a class="reference internal" href="releasing.html#releasing"><span class="std std-ref">Releasing Your Package</span></a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[testenv]</span></code> section describes settings common to all environments you
+specify in the tox file (unless they are later overridden), here we default
+the <code class="docutils literal notranslate"><span class="pre">commands</span> <span class="pre">=</span></code> option to run pytest. The <code class="docutils literal notranslate"><span class="pre">{posargs}</span></code> is a tox
+<a class="reference external" href="https://tox.readthedocs.io/en/latest/config.html#substitutions">substitution</a> which
+passes extra arguments through to <code class="docutils literal notranslate"><span class="pre">pytest</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">extras</span> <span class="pre">=</span> <span class="pre">test</span></code> line tells tox to install the <code class="docutils literal notranslate"><span class="pre">optional-dependencies</span></code> section
+listed in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> for running your test suite; this should include <code class="docutils literal notranslate"><span class="pre">pytest</span></code>.</p>
+<p>To run your tests with tox run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tox<span class="w"> </span>-e<span class="w"> </span>py38
+</pre></div>
+</div>
+<p>To pass arguments through to <code class="docutils literal notranslate"><span class="pre">pytest</span></code> use <code class="docutils literal notranslate"><span class="pre">--</span></code> here we tell pytest to
+stop after the first failure.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tox<span class="w"> </span>-e<span class="w"> </span>py38<span class="w"> </span>--<span class="w"> </span>-x
+</pre></div>
+</div>
+<section id="multiple-builds">
+<h3>Multiple builds<a class="headerlink" href="#multiple-builds" title="Link to this heading">¶</a></h3>
+<p>Tox allows configuration of multiple builds in a few different ways, the
+easiest one is to specify multiple Python versions in the env list:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py{37,38}</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+</pre></div>
+</div>
+<p>This takes our one test configuration and makes a Python 3.7 and a Python 3.8
+environment that can be seen by listing all tox environments with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tox<span class="w"> </span>-l
+<span class="go">py38</span>
+<span class="go">py37</span>
+</pre></div>
+</div>
+<p>This feature is called <a class="reference external" href="https://tox.readthedocs.io/en/latest/config.html#generative-envlist">generative envlist</a> and can be used to create many build environments with minimal repetition.</p>
+</section>
+<section id="named-environments">
+<h3>Named Environments<a class="headerlink" href="#named-environments" title="Link to this heading">¶</a></h3>
+<p>Using generative build environments you can define extra named environments
+which can be useful for builds that need to specify specific dependencies or
+settings. So far on this page we have assumed that all your dependencies are
+specified in <a class="reference internal" href="minimal.html#pyproject"><span class="std std-ref">pyproject.toml</span></a>. You can extend or override this by using the
+<code class="docutils literal notranslate"><span class="pre">deps</span> <span class="pre">=</span></code> configuration option in tox. Here we define a named test
+environment which installs the development version of numpy.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py{37,38}{-numpydev,}</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[testenv]</span>
+<span class="na">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest {posargs}</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="na">numpydev</span><span class="o">:</span><span class="w"> </span><span class="s">git+https://github.com/numpy/numpy</span>
+</pre></div>
+</div>
+<p>the <code class="docutils literal notranslate"><span class="pre">envlist</span></code> is now more complex, the result of this the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tox<span class="w"> </span>-l
+<span class="go">py37-numpydev</span>
+<span class="go">py37</span>
+<span class="go">py38-numpydev</span>
+<span class="go">py38</span>
+</pre></div>
+</div>
+<p>with the <code class="docutils literal notranslate"><span class="pre">deps</span></code> overridden for <code class="docutils literal notranslate"><span class="pre">numpydev</span></code> builds.</p>
+</section>
+<section id="environment-variables">
+<h3>Environment variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h3>
+<p>It is often useful to set environment variables within the building and testing
+environment prior to testing. Environment variables can be set within <code class="docutils literal notranslate"><span class="pre">tox.ini</span></code>
+with:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[testenv]</span>
+<span class="c1"># Pass through the following environment variables which may be needed for the CI</span>
+<span class="na">passenv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">HOME, WINDIR, LC_ALL, LC_CTYPE, CC, CI, TRAVIS</span>
+
+<span class="c1"># Suppress display of matplotlib plots generated during docs build</span>
+<span class="na">setenv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">MPLBACKEND=agg</span>
+</pre></div>
+</div>
+<p>The variables listed after <code class="docutils literal notranslate"><span class="pre">passenv</span></code> will be preserved from the
+environment that you used to run tox, while the <code class="docutils literal notranslate"><span class="pre">setenv</span></code> variables
+are set within the testing environment. In the template, we have set the
+<code class="docutils literal notranslate"><span class="pre">MPLBACKEND</span></code> variable to the <code class="docutils literal notranslate"><span class="pre">agg</span></code> backend, which prevents matplotlib
+from launching interactive plot displays when generating figures from the
+matplotlib plot directive or pytest-mpl. For more on making use of this
+feature, see <a class="reference internal" href="docs.html#plot-directive"><span class="std std-ref">Add plots to your documentation</span></a>.</p>
+</section>
+</section>
+<section id="building-documentation-with-tox">
+<h2>Building Documentation with tox<a class="headerlink" href="#building-documentation-with-tox" title="Link to this heading">¶</a></h2>
+<p>One common task which isn’t running the test suite is building sphinx
+documentation, documentation builds can be complex with a number of extra
+dependencies or settings. In this section we will add a <code class="docutils literal notranslate"><span class="pre">build_docs</span></code> named
+environment to tox. This section assumes you have already followed
+<a class="reference internal" href="docs.html#documentation"><span class="std std-ref">Documenting your Package</span></a>.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[testenv:build_docs]</span>
+<span class="na">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">docs</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">sphinx-build docs docs/_build/html -W -b html {posargs}</span>
+</pre></div>
+</div>
+<p>This section installs the package extras for the documentation, which should
+be a list of all your documentation dependencies and then sets the command to
+be the <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html">sphinx-build</a> command to
+build the docs and output them in the <code class="docutils literal notranslate"><span class="pre">docs/_build/html</span></code> folder relative to
+the <code class="docutils literal notranslate"><span class="pre">tox.ini</span></code> file.</p>
+<p>You can now run your documentation with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tox<span class="w"> </span>-e<span class="w"> </span>build_docs
+</pre></div>
+</div>
+<p>you can pass through extra arguments to <a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html">sphinx-build</a> because of
+the <code class="docutils literal notranslate"><span class="pre">{posargs}</span></code> substitution. For example to force sphinx to ignore its
+cache you can run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tox<span class="w"> </span>-e<span class="w"> </span>build_docs<span class="w"> </span>--<span class="w"> </span>-aE
+</pre></div>
+</div>
+</section>
+<section id="testing-packages-with-compiled-extensions">
+<h2>Testing Packages with Compiled Extensions<a class="headerlink" href="#testing-packages-with-compiled-extensions" title="Link to this heading">¶</a></h2>
+<p>As configured in this guide so far, tox will perform the following actions (all in the same directory as the <code class="docutils literal notranslate"><span class="pre">tox.ini</span></code> file):</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span></code></p></li>
+<li><p>Create a new virtualenv</p></li>
+<li><p>Install the built sdist.</p></li>
+<li><p>Run the commands listed in <code class="docutils literal notranslate"><span class="pre">commands</span> <span class="pre">=</span></code>, which here we assume to be <code class="docutils literal notranslate"><span class="pre">pytest</span></code>.</p></li>
+</ol>
+<p>(See <a class="reference external" href="https://tox.readthedocs.io/en/latest/index.html#system-overview">https://tox.readthedocs.io/en/latest/index.html#system-overview</a> for more details.)</p>
+<p>For packages laid out as described in this guide, i.e. with the Python
+package in a directory in the root repo, i.e. <code class="docutils literal notranslate"><span class="pre">astropy/</span></code>, this means that
+when <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is run, it will collect the tests from the local directory
+(as desired), and all imports of the package i.e. <code class="docutils literal notranslate"><span class="pre">astropy</span></code> will be
+imported from the local directory <em>not the installed sdist</em>.</p>
+<p>For pure python packages this generally isn’t a problem, the contents of the
+installed sdist and the local directory are the same (tox just made the sdist
+from the local directory). However, for packages that include compiled
+extensions, the installed package and the local directory are <em>not the same</em>.
+The installed package has build the compiled extensions, and the local
+directory does not. This means that unless you make some adjustments to the
+package or the tox configuration compiled extensions will not work when
+running pytest through tox as described above.</p>
+<p>There are two main ways to alleviate this issue:</p>
+<p>1. Move the Python package source code under a <code class="docutils literal notranslate"><span class="pre">src/</span></code> folder in the root of
+the repo. This is a common package layout for Python projects, and it means
+that you can not import your package relative to the git root, meaning it
+will be imported from the installed sdist, see <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/setuptools.html#using-a-src-layout">https://setuptools.readthedocs.io/en/latest/setuptools.html#using-a-src-layout</a> for details.</p>
+<p>2. Configure tox to run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> from a temporary directory so that the
+local import does not work. With this method you make use of pytest’s
+<a class="reference external" href="https://docs.pytest.org/en/latest/example/pythoncollection.html#interpreting-cmdline-arguments-as-python-packages">–pyargs flag</a>
+to run the tests against the installed version of the package. This ensures
+that any compiled extensions are properly detected, but prevents things like
+specifying paths to pytest from working.</p>
+<p>To configure tox to run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> from a temporary directory do the
+following in <code class="docutils literal notranslate"><span class="pre">tox.ini</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py38</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[testenv]</span>
+<span class="na">changedir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tmp</span>
+<span class="na">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest --pyargs packagename {posargs}</span>
+</pre></div>
+</div>
+<p>replacing <code class="docutils literal notranslate"><span class="pre">packagename</span></code> with the name of your package as you import it,
+i.e. <code class="docutils literal notranslate"><span class="pre">astropy</span></code>.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="tests.html" title="Previous document">Testing your package</a>
+        </li>
+        <li>
+          <a href="extensions.html" title="Next document">Compiled C/Cython extensions</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &#169;2024, Roman Supernova PIT.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/tox.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
