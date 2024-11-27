@@ -7,7 +7,7 @@ updates:
   directory: "/"
   target-branch: "main"
   schedule:
-    interval: weekly
+    interval: monthly
   open-pull-requests-limit: 10
   reviewers:
     - "Roman-Supernova-PIT/software-admins"
@@ -16,14 +16,22 @@ updates:
     - dependency-type: indirect
   commit-message:
     prefix: "fix: "
+  labels:
+    - "CI/CD"
 
 # maintain dependencies for github-actions
 - package-ecosystem: "github-actions"
-  directory: "/"
+  directory: ".github/workflows"
   target-branch: "main"
   reviewers:
-    - "sosey"
+    - "Roman-Supernova-PIT/software-admins"
   schedule:
-    interval: weekly
+    interval: monthly
   commit-message:
     prefix: "fix: "
+  labels:
+    - "CI/CD"
+  groups:
+    actions:
+      patterns:
+        - "*"
