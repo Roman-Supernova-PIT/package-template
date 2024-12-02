@@ -31,9 +31,16 @@ If you would like to stick to simply the cookiecutter approach, the template sti
    $ pip install cookiecutter
    $ cookiecutter gh:Roman-Supernova-PIT/package-template -o ./output_directory
 
-This will create a new directory in your current directory named the same as the value of "packagename" you supplied.
-Change into this directory and run ``git init`` to make it into a git repository, and make an initial commit.
-This is required in order to have software versioning working for your package.
+This will create a new directory in your current directory named the same as the value of "packagename" you supplied. Change into this directory and run ``git init`` to make it into a git repository, and make an initial commit. Then pip install into a clean environment and try building docs:
+
+.. code-block:: console
+
+   $ pip install -e ".[docs,test]"
+   $ cd docs
+   $ make html
+
+
+This is required in order to have software versioning working for your package, and to test creating docs.
 
 The goal of the template is to quickly get you setup with the files described in the guide.
 The template currently implements the following optional flags, all of which default to off:
@@ -41,3 +48,6 @@ The template currently implements the following optional flags, all of which def
 * ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.
 * ``use_compiled_extensions``: This turns on the features needed to support compiled extensions
 * ``enable_dynamic_dev_versions``: This enables a feature which ensures that ``my_package.__version__`` always returns the current git version as calculated by ``setuptools_scm`` when the package is installed as an editable install. 
+
+
+

@@ -140,8 +140,8 @@ name = "Documentation"
 showcontent = true
 
 [[tool.towndcrier.type]]
-directory = {{  cookiecutter.module_name }}
-name = " {{  cookiecutter.module_name  }}"
+directory = "{{ cookiecutter.module_name }}"
+name = "{{ cookiecutter.module_name }}"
 showcontent = true
 
 
