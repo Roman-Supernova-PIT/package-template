@@ -22,19 +22,19 @@ jobs:
 
 documentation:
   - changed-files:
-    - all-globs-to-any-file: ['*.rst', '!CHANGES.rst']
+    - all-globs-to-any-file: ['*.rst', '!CHANGES.rst', '!licenses/LICENSE.rst']
     - any-glob-to-any-file:
       - 'docs/**/*'
       - '*.md'
       - '.readthedocs.yaml'
-      - 'licenses/LICENSE.rst'
+      - 'CITATION.cff'
 
 installation:
   - changed-files:
     - any-glob-to-any-file:
       - 'pyproject.toml'
       - 'setup.*'
-      - 'requirements-*.txt'
+      - 'requirements*.txt'
       - 'MANIFEST.in'
 
 # --------------------------------------- testing ---------------------------------------
