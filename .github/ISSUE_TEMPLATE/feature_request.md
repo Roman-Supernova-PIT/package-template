@@ -1,5 +1,5 @@
 ---
-name: "Feature request"
+name: "Feature request for package-template"
 about: Suggest an idea for this project
 title: "[New Feature]: "
 labels: enhancement, needs triage

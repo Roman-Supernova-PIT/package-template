@@ -3,7 +3,7 @@ name: "🐞 Issue report for package-template itself"
 about: Create a report describing unexpected or incorrect behavior.
 title: "[Issue]: <title>"
 labels: bug
-assignees: ''
+assignees: 'software-admins'
 ---
 
 <!--

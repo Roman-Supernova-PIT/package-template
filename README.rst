@@ -16,6 +16,7 @@ To create a new package based on the template run:
    $ pip install cookiecutter cruft
    $ cruft create https://github.com/Roman-Supernova-PIT/package-template
 
+
 and go through the steps offered in the cli naming your package and filling in your details.
 Cruft is built on cookiecutter, and enables the updating of the template from the source.
 This takes the form of pull requests to the repository that the new package is pushed to.
@@ -35,6 +36,8 @@ This will create a new directory in your current directory named the same as the
 
 .. code-block:: console
 
+   $ cd <your package name>
+   $ git init
    $ pip install -e ".[docs,test]"
    $ cd docs
    $ make html
