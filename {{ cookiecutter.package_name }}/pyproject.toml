@@ -119,19 +119,18 @@ exclude_lines = [
 ]
 
 [tool.towncrier]
-filename = "CHANGES.rst"
-# Where you want your news files to come out, `NEWS.rst` is the default.
+# Where you want your news files to come out, filename=`NEWS.rst` is the default.
 # This can be .rst or .md, towncrier's default template works with both.
-# filename = "NEWS.rst"
+filename = "CHANGES.rst"
 directory = "changes"
-package = "{{ cookiecutter.package_name }}"
+package = "{{ cookiecutter.module_name }}"
 title_format = "{version} ({project_date})"
 ignore = [".gitkeep"]
 wrap = true
 issue_format = "`#{issue} <https://github.com/Roman-Supernova-PIT/{{ cookiecutter.package_name }}/issues/{issue}>`_"
 
 [[tool.towncrier.type]]
-directory = "general"
+directory = "/"
 name = "General"
 showcontent = true
 
@@ -139,3 +138,10 @@ showcontent = true
 directory = "docs"
 name = "Documentation"
 showcontent = true
+
+[[tool.towndcrier.type]]
+directory = "{{ cookiecutter.module_name }}"
+name = "{{ cookiecutter.module_name }}"
+showcontent = true
+
+
