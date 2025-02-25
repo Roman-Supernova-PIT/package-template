@@ -1,11 +1,11 @@
 # Roman Supernova PIT Open Source Code of Conduct
 
-We expect all "Roman Supernova PIT" organization projects to adopt a code of conduct that ensures a productive, respectful environment for all open source contributors and participants. We are committed to providing a strong and enforced code of conduct and expect everyone in our community to follow these guidelines when interacting with others in all forums. Our goal is to keep ours a positive, inclusive, successful, and growing community. The community of participants in open source Astronomy projects is made up of members from around the globe with a diverse set of skills, personalities, and experiences. It is through these differences that our community experiences success and continued growth.
+We expect all "Roman Supernova PIT" organization projects to adopt a code of conduct that ensures a productive, respectful environment for all open source contributors and participants. We are committed to providing a strong and enforced code of conduct and expect everyone in our community to follow these guidelines when interacting with others in all forums. Our goal is to keep ours a positive, successful, and growing community. The community of participants in open source Astronomy projects is made up of members from around the globe with a diverse set of skills and experience. It is through these differences that our community experiences success and continued growth.
 
 
 As members of the community,
 
-- We pledge to treat all people with respect and provide a harassment- and bullying-free environment, regardless of sex, sexual orientation and/or gender identity, disability, physical appearance, body size, race, nationality, ethnicity, and religion. In particular, sexual language and imagery, sexist, racist, or otherwise exclusionary jokes are not appropriate.
+- We pledge to treat all people with respect and provide a harassment- and bullying-free environment. In particular, sexual language and imagery, sexist, racist, or otherwise exclusionary jokes are not appropriate.
 
 - We pledge to respect the work of others by recognizing acknowledgment/citation requests of original authors. As authors, we pledge to be explicit about how we want our own work to be cited or acknowledged.
 
@@ -15,7 +15,7 @@ As members of the community,
 
 - We pledge to be conscientious of the perceptions of the wider community and to respond to criticism respectfully. We will strive to model behaviors that encourage productive debate and disagreement, both within our community and where we are criticized. We will treat those outside our community with the same respect as people within our community.
 
-- We pledge to help the entire community follow the code of conduct, and to not remain silent when we see violations of the code of conduct. We will take action when members of our community violate this code such as such as contacting romansnpit@gmail.com (all emails sent to this address will be treated with the strictest confidence) or talking privately with the person.
+- We pledge to help the entire community follow the code of conduct, and to not remain silent when we see violations of the code of conduct. We will take action when members of our community violate this code such as talking privately with the person. The following email may be used to report any issue romansnpit@gmail.com. All emails sent to this address will be treated with the strictest confidence.
 
 This code of conduct applies to all community situations online and offline, including mailing lists, forums, social media, conferences, meetings, associated social events, and one-to-one interactions.
 
