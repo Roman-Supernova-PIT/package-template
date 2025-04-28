@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0
       - run: pip install .
       - run: pip install towncrier
-{%- if cookiecutter.enable_dynamic_dev_versions == 'y' -%}
+{% if cookiecutter.enable_dynamic_dev_versions == 'y' %}
       - run: if [[ -f snappl/_version.py ]]; then /bin/false; fi
       - run: pip install setuptools-scm
       - run: python -m setuptools_scm --force-write-version-files
