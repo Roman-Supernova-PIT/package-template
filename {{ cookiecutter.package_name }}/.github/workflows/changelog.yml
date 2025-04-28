@@ -35,6 +35,7 @@ jobs:
           fi
       - run: pip install setuptools-scm
       - run: python -m setuptools_scm --force-write-version-files
+{% else %}
 {% endif %}
       - run: towncrier check
       - run: towncrier build --draft | grep -P '#${{ github.event.number }}'
