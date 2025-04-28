@@ -292,3 +292,21 @@ start a Python session from a different directory and type e.g.::
     0.1.dev1+g25976ae
 
 .. TODO: mention about adding more files to package with functionality
+
+
+Adding your package to github
+------------------------------
+
+TODO: instructions about creating a github archive and all that?  Probably no need to repeat that here, you can find that elsewhere.
+
+When you use the template, the file `.github/CODEOWNERS` will declare that the github group "Roman-Supernova-PIT/software-admins" is one of the owners of your repo.  In PRs, you will notice an error message if this group does not in fact have access to your repo.  So, unless you have a reason not to, give them access.  To do this, go to your repo's main page on github, and click on "Settings" (next to the gear icon) in the header.  Near the top of the left sidebar, find "Collaborations and teams"; click on that.  If you don't already see "software admins" as having access, click "Add teams".  Find "Roman-Supernova-PIT/software-admins" in the list of teams, and click on it.  On the page that comes up, give the software-admins team an appropriate role; given the name, you should probably just go ahead and let that group have the "Admin" role, so that if you go away, we will still be able to fully work with your github archive.  Click "Add Selection" once you've chosen the role.
+
+
+Adding tests to github workflow
+-------------------------------
+
+If you want the tests in ``<package_name>/tests`` to automatically run on pull requests, you can add a file to `.github/workflows` that defines these tests.  We recommend that you write the workflow to run tests within the `SN PIT environment <https://github.com/Roman-Supernova-PIT/environment>`_.
+
+As an example of one such workflow, look at `this workflow file for snappl <https://github.com/Roman-Supernova-PIT/snappl/blob/u/rknop/pkg_template/.github/workflows/run_snappl_tests.yml>`_.  For something based off of this work, you need a file `docker_compose.yaml` in the ``<package_name>/tests`` file; see `snappl's docker_compose.yaml <https://github.com/Roman-Supernova-PIT/snappl/blob/u/rknop/pkg_template/snappl/tests/docker-compose.yaml>`_ for an example.
+
+If you look at that `docker_compose.yaml` file, you will notice that the entrypoint for the ``runtests`` service runs ``python -m setuptools_scm...``.  This is necessary if you've set up dynamic versioning; otherwise, when you ran the tests, a necessary version file would not be in there.  If you aren't running dyanmic versioning, your entrypoint can just be the ``pytest`` command.

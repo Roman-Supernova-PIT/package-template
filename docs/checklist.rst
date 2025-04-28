@@ -18,22 +18,32 @@ Edit your code
 
 Do what you would normally do in a pull request: add the new feature or bug fix to the forked repo or to the non-``main`` branch you're working in.
 
-Bump your version number if necessary
--------------------------------------
-
-In :ref:`minimal` it suggests that you should be pulling version numbers from git tags, but I haven't yet figured out how this works.  You can manage version numbers manually as described there.  Briefly, Remove the line ``dynamic = ["version"]`` from your ``pyproject.toml`` file, and replace it with ``version = 0.0.1``, replacing ``0.0.1`` with the actual version.  Decide which numbers should be changed by thinking about `semantic versioning <https://semver.org`.  (You can get most of what you need to know from that page by reading the short "Summary" section.)
-
 Add a news fragment
 -------------------
 
 ``towncrier``, which is run as part of the standard github actions tests, requires all PRs to have at least one new "news fragment".  In the top level directory of your repo, run::
 
-  towncrier create <Issue#>.<extension>
+  towncrier create <PR#>.<extension>
 
-The Issue # should be the repo's Issue # that this PR addresses.  (If there isn't an issue on github, make one; if that seems excessive, then you can use any text string in place of ``<Issue#>``, but it can't be something that already exists.  Using something like ``yyyy-mm-dd_hh-mm-ss``, substituting in the date and time, is probably the safest.)    The ``extension`` should either ``docs`` or the name of your package (cf: :ref:`minimal`), based on whether you made changes to the actual code, or just to the docs.  (If you did both, use your package name.)  This will create a file ``changes/<Issue#>.<extension>.rst``.  Edit that file and put in a short one-line desription of what you've done.  (TODO: describe issue reference.)
+where ``<PR#>`` is the number of your pull request.  There is a bit of a chicken-and-egg problem here in that you have to create the pull request before you know this number; in so doing, the tests will fail, because you won't have created the news fragment yet.  So, just accept that the tests will fail right after you create the PR.  Create it, and having done so figure out what the number of the PR is.  Then, run the command above.  This will create a new file ``changes/<PR#>.<extension>.rst``.  Edit that file and put in a short one-line desription of what you've done.  Perhaps reference any Issue numbers that you are addressing.  Add that file with ``git add`` and ``git commit``, and then ``git push`` again.  This step of the tests on github should now pass.  (No promises for any other tests.)
 
-So, for example, if your package is ``guide``, and you have created an Issue in the github repo that is Issue #42 ("adding a new feature that provides the answer to the ultimate question of life, the universe, and everything"), then you should run ``towncrier create 42.guide``.  That will create a file ``changes/42.guide.rst``.  You might then edit that file and replace its contents with::
+So, for example, if your package is ``guide``, and you know that you are doing pull request #42.  In this case, you would run ``towncrier create 42.guide``.  That will create a file ``changes/42.guide.rst``.  You might then edit that file and replace its contents with::
 
   added the answer (Issue #42)
 
+You'd then run ``git add changes/42.guide.rst``, ``git commit``, and ``git push``.
+
+Before merging the PR to main — bump the version if appropriate
+----------------------------------------------------------------
+
+There may be further changes to the branch of your PR based on code reviews.  Once all of that is done and you're ready to merge to main, you probably need to do one more thing: bump the version.
+
+Figure out what the current version of the package is by running::
+  git pull -a
+  git tag
+
+That will list the tags that are currently defined for the repo.  Find the ones that look like `semantic versioning <https://semver.org/>`_ (you really only need to read the short "Summary" section on that link, but read the rest if you're morbidly curious).  Decide which numbers you need to change based on what changes are in this PR.  Once you've figured out what your new version is going to be, create a git tag with this new version.  So, for example, suppose the highest tagged version you found existing was `1.9.5`.  Suppose you've added new functionality, but in a backwards compatible manner.  (So, you have new functions or methods, but you didn't change anything so all code that uses your code will still work as-is.)  In this case, you would want to bump the minor version number, and your new version would be `1.10.0`.  You would then run::
+  git checkout <branch_of_your_pr>
+  git tag 1.10.1
+  git push origin --tags
 

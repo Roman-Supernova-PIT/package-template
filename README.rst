@@ -46,12 +46,13 @@ This will create a new directory in your current directory named the same as the
 This is required in order to have software versioning working for your package, and to test creating docs.
 
 The goal of the template is to quickly get you setup with the files described in the guide.
-The template currently implements the following optional flags, all of which default to off:
+The template currently implements the following optional flags:
 
-* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.
-* ``use_compiled_extensions``: This turns on the features needed to support compiled extensions
-* ``enable_dynamic_dev_versions``: This enables a feature which ensures that ``my_package.__version__`` always returns the current git version as calculated by ``setuptools_scm`` when the package is installed as an editable install. 
-
+* ``use_compiled_extensions``: This turns on the features needed to support compiled extensions.  Defaults to off.
+* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.  Defaults to on.
+* ``enable_dynamic_dev_versions``: This enables a feature which ensures that ``my_package.__version__`` always returns the current git version as calculated by ``setuptools_scm`` when the package is installed as an editable install.  Defaults to on.  (WARNING: as of this writing, the `cruft` step won't work if you don't leave this on.)
+* ``include_github_workflows``: Adds some github workflows that will be automatically run on pull requests (and some other times) that will check the integrity of the package (e.g. making sure that you've added to change logs, that you've done dynamic versioning properly, etc.).  Defaults to on.
+  
 
 Adding the template to a pre-existing git repo
 ===============================================
