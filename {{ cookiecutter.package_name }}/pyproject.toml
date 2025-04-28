@@ -139,7 +139,7 @@ directory = "docs"
 name = "Documentation"
 showcontent = true
 
-[[tool.towndcrier.type]]
+[[tool.towncrier.type]]
 directory = "{{ cookiecutter.module_name }}"
 name = "{{ cookiecutter.module_name }}"
 showcontent = true
