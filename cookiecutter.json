@@ -4,7 +4,7 @@
     "short_description": "Developed by the Roman Supernova PIT",
     "author_name": "",
     "author_email": "",
-    "github_username": "sosey",
+    "github_username": "",
     "pit_name": "Roman-Supernov-PIT",
     "project_url": "https://github.com/Roman-Supernova-PIT",
     "minimum_python_version": [
@@ -17,7 +17,7 @@
     "include_github_workflows": "y",
     "_sphinx_theme": "alabaster",
     "_parent_project": "",
-    "_install_requires": "",
+    "install_requires": "",
     "_copy_without_render": [
         "docs/_templates",
         "docs/_static",
