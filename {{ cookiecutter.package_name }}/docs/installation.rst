@@ -40,11 +40,11 @@ Or download the `tarball`_:
 
     $ curl -OJL {{ cookiecutter.project_url }}/{{ cookiecutter.package_name }}/tarball/master
 
-Once you have a copy of the source, you can install it with:
+Once you have a copy of the source, you can install it with, add "-e" for an editable install:
 
 .. code-block:: console
 
-    $ python setup.py install
+    $ pip install .
 
 
 .. _Github repo: {{ cookiecutter.project_url }}/{{ cookiecutter.package_name }}
