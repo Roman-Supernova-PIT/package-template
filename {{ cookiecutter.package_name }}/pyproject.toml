@@ -1,39 +1,37 @@
-[build-system]
-requires = [
-  "setuptools>=62.1",
-  "setuptools_scm[tomli]>=6.2",
-  "wheel",
-{%- if cookiecutter.use_compiled_extensions == 'y' %}
-  "extension-helpers",
-  "numpy>=1.26",
-  "cython"
-{% endif -%}
-]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "{{ cookiecutter.module_name }}"
 description = "{{ cookiecutter.short_description }}"
 requires-python = ">={{ cookiecutter.minimum_python_version }}"
-readme = { file = "README.rst", content-type = "text/x-rst" }
-license = { file = "licenses/LICENSE.rst" }
-{%- if cookiecutter.author_name and cookiecutter.author_email %}
-authors = [
-  { name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}" },
-]
-{%- endif %}
+dynamic = ["version"]
+authors = [{ name = "Roman Supernova PIT"}]
+
+{% if cookiecutter.author_name and cookiecutter.author_email %}
+    maintainer = [{ name = "{{ cookiecutter.author_name }},
+                    email = "{{ cookiecutter.author_email }}>"}
+              ]
+{% elif cookiecutter.author_name %}
+    maintainer = [{ name = "{{ cookiecutter.author_name }}"}]
+{% endif %}
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.license]
+file = "LICENSE"
+
 dependencies = [
   {{- cookiecutter._install_requires -}}
   "towncrier",
-  "cruft"
+  "cruft",
 ]
-dynamic = ["version"]
 
-{% if cookiecutter.include_example_code == 'y' -%}
+
+{% if cookiecutter.include_example_code == 'y' %}
 [project.scripts]
 package_template_example = "{{ cookiecutter.module_name }}.example_mod:main"
 
-{% endif -%}
+{% endif %}
 [project.optional-dependencies]
 test = [
     "pytest",
@@ -49,26 +47,37 @@ docs = [
     "graphviz"
 ]
 
-{%- if cookiecutter.project_url %}
+{% if cookiecutter.project_url %}
 [project.urls]
 repository = "{{ cookiecutter.project_url }}"
-{%- endif %}
+{% endif %}
+
+[build-system]
+requires = [
+  "setuptools>=62.1",
+  "setuptools_scm[tomli]>=6.2",
+  "wheel",
+  "numpy>=1.26",
+{% if cookiecutter.use_compiled_extensions == 'y' %}
+  "extension-helpers",
+  "cython",
+{% endif -%}
+]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 zip-safe = false
 include-package-data = true
 
 [tool.setuptools.packages.find]
-{% if cookiecutter.enable_dynamic_dev_versions == 'y' -%}
-exclude = ["{{ cookiecutter.module_name }}._dev*"]
-{%- endif %}
+namespaces = false
+include = [
+"{{ cookiecutter.module_name }}*"
+]
 
 [tool.setuptools_scm]
-{% if cookiecutter.enable_dynamic_dev_versions == 'y' -%}
-write_to = "{{ cookiecutter.module_name }}/_version.py"
-{%- else -%}
-write_to = "{{ cookiecutter.module_name }}/version.py"
-{%- endif %}
+# can be empty if no extra settings are needed, presence enables setuptools-scm
+version_file = "{{ cookiecutter.module_name }}/_version.py"
 
 [tool.pytest.ini_options]
 testpaths = [
@@ -76,6 +85,7 @@ testpaths = [
   "docs",
 ]
 doctest_plus = "enabled"
+doctest_rst = "enabled"
 text_file_format = "rst"
 addopts = "--doctest-rst"
 
@@ -87,14 +97,14 @@ omit = [
  "{{ cookiecutter.module_name }}/tests/*",
  "{{ cookiecutter.module_name }}/*/tests/*",
  "{{ cookiecutter.module_name }}/extern/*",
- "{{ cookiecutter.module_name }}/version*",
+ "{{ cookiecutter.module_name }}/_version*",
  "*/{{ cookiecutter.module_name }}/_{{ cookiecutter._parent_project }}_init*",
  "*/{{ cookiecutter.module_name }}/conftest.py",
  "*/{{ cookiecutter.module_name }}/*setup_package*",
  "*/{{ cookiecutter.module_name }}/tests/*",
  "*/{{ cookiecutter.module_name }}/*/tests/*",
  "*/{{ cookiecutter.module_name }}/extern/*",
- "*/{{ cookiecutter.module_name }}/version*",
+ "*/{{ cookiecutter.module_name }}/_version*",
 ]
 
 [tool.coverage.report]
@@ -169,7 +179,7 @@ directory = "docs"
 name = "Documentation"
 showcontent = true
 
-[[tool.towndcrier.type]]
+[[tool.towncrier.type]]
 directory = "{{ cookiecutter.module_name }}"
 name = "{{ cookiecutter.module_name }}"
 showcontent = true
