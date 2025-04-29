@@ -68,6 +68,6 @@ be installed.
 The solution to this implemented in the template (behind an opt-in option) is to
 make a subpackage called `_dev` which is not included in the dists (it is
 excluded in ``MANIFEST.in``) which invokes setuptools. This ``_dev`` package is
-then invoked by the ``my_pacakge/version.py`` file, which will fall back to
+then invoked by the ``my_pacakge/_version.py`` file, which will fall back to
 reading the static version from ``my_package/_version.py`` file if it can't
 access ``_dev`` (in the case where it's not a dev install).
