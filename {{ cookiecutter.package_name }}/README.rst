@@ -5,7 +5,7 @@ License
 -------
 
 This project is Copyright (c) {{ cookiecutter.author_name }} and licensed under
-the terms of the {{ cookiecutter.license }} license. This package is based upon
+the terms of the BSD-3Clause license. This package is based upon
 the `Roman Supernova PIT packaging guide <https://github.com/Roman-Supernova-PIT/package-template>`_
 which is licensed under the BSD 3-clause licence. See the licenses folder for
 more information.

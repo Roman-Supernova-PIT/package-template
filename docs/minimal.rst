@@ -80,7 +80,7 @@ so a better approach is to put the following in your ``__init__.py`` file
         pass
 
 This will automatically set ``__version__`` to the global version of the package
-declared in :ref:`pyproject` or set by the `setuptools_scm
+declared in :ref:`pyproject` or set by the `setuptools_scm 
 <https://pypi.org/project/setuptools-scm/>`__ package (see :ref:`setup_py` and
 :ref:`pyproject` for more details).
 
@@ -125,14 +125,7 @@ we strongly recommend making the package and the module name the same to avoid c
 Note that the version of the package is **not** explicitly defined in the file above,
 (rather, defined as ``dynamic``), because we are using the
 `setuptools_scm <https://pypi.org/project/setuptools-scm/>`_ package to automatically
-retrieve the latest version from Git tags. However, if you choose to not use that
-package, you can explicitly set the version in the ``[project]`` section (and remove it
-from the ``dynamic`` list):
-
-.. code-block:: toml
-
-    [project]
-    version = "0.12"
+retrieve the latest version from Git tags. 
 
 The ``description`` should be a short one-line sentence that will appear next to your package name
 on `PyPI <https://pypi.org>`_ when users search for packages. The ``readme``
@@ -164,14 +157,6 @@ The recommended way to specify build-time dependencies is to define the
     [build-system]
     requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
     build-backend = 'setuptools.build_meta'
-
-If you choose to not use ``setuptools_scm``, you can remove it from this list.
-
-If you do want to use ``setuptools_scm`` you also want to add the following
-block to enable and configure it::
-
-    [tool.setuptools_scm]
-    write_to = "my_package/_version.py"
 
 If your package has C extensions that interface with `Numpy <https://numpy.org>`_,
 you may also need to add Numpy to the above list - see :ref:`extensions` for
@@ -205,15 +190,13 @@ A complete list of keywords in ``[tool.setuptools]`` can be found in the
 .. code-block:: toml
 
     [tool.setuptools_scm]
-    write_to = "my_package/version.py"
+    version_file = "my_package/_version.py"
 
 The ``[tool.setuptools_scm]`` table indicates that we want to use the `setuptools_scm
 <https://pypi.org/project/setuptools-scm/>`_ package to set the version
 automatically based on git tags, which will produce version strings such as
 ``0.13`` for a stable release, or ``0.16.0.dev113+g3d1a8747`` for a developer
-version. The ``write_to`` option is not necessary; it will write the parsed version
-to a ``version.py`` with a ``__version__`` variable that can be imported by the
-package itself.
+version. 
 
 .. _setup_py:
 
@@ -282,7 +265,7 @@ can test out the package by running
 
 .. code-block:: shell
 
-    pip install .
+    pip install -e .
 
 from the root of the package. Once you have done this, you should be able to
 start a Python session from a different directory and type e.g.::
