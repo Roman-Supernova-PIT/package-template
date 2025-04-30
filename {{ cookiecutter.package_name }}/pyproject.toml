@@ -3,19 +3,24 @@ name = "{{ cookiecutter.module_name }}"
 description = "{{ cookiecutter.short_description }}"
 requires-python = ">={{ cookiecutter.minimum_python_version }}"
 dynamic = ["version"]
-authors = [{ name = "Roman Supernova PIT"}]
+authors = [{ name = "{{ cookiecutter._pit_name }}"}]
 {% if cookiecutter.author_name and cookiecutter.author_email %}
 maintainers = [
  {name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}"}
  ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 3 - Alpha",
   "Programming Language :: Python"
 ]
 dependencies = [
   "towncrier",
   "setuptools_scm",
   "cruft",
+  "coverage",
   {% if cookiecutter.install_requires %}
   "{{ cookiecutter.install_requires }}",
   {% endif %}
@@ -51,9 +56,9 @@ docs = [
     "graphviz"
 ]
 
-{% if cookiecutter.project_url %}
+{% if cookiecutter._project_url %}
 [project.urls]
-repository = "{{ cookiecutter.project_url }}"
+repository = "{{ cookiecutter._project_url }}"
 {% endif %}
 
 
@@ -173,7 +178,7 @@ package_dir = "{{ cookiecutter.module_name }}"
 title_format = "{version} ({project_date})"
 ignore = [".gitkeep"]
 wrap = true
-issue_format = "`#{issue} <https://github.com/Roman-Supernova-PIT/{{ cookiecutter.package_name }}/issues/{issue}>`_"
+issue_format = "`#{issue} <https://github.com/{{ cookiecutter._pit_github_org }}/{{ cookiecutter.package_name }}/issues/{issue}>`_"
 
 [[tool.towncrier.type]]
 directory = "/"
@@ -183,6 +188,16 @@ showcontent = true
 [[tool.towncrier.type]]
 directory = "docs"
 name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bugfixes"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "New Features"
 showcontent = true
 
 [[tool.towncrier.type]]

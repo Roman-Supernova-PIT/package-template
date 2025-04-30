@@ -1,6 +1,6 @@
 BSD-3-Clause LICENSE
 
-Copyright (c) {% now 'utc', '%Y' %}, Roman Supernova PIT
+Copyright (c) {% now 'utc', '%Y' %}, {{ cookiecutter._pit_name}}
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

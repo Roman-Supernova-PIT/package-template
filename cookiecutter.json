@@ -5,8 +5,6 @@
     "author_name": "",
     "author_email": "",
     "github_username": "",
-    "pit_name": "Roman-Supernov-PIT",
-    "project_url": "https://github.com/Roman-Supernova-PIT",
     "minimum_python_version": [
         "3.11",
         "3.12",
@@ -15,6 +13,9 @@
     "use_compiled_extensions": "n",
     "include_example_code": "y",
     "include_github_workflows": "y",
+    "_project_url": "https://github.com/Roman-Supernova-PIT",
+    "_pit_github_org": "Roman-Supernova-PIT",
+    "_pit_name": "Roman Supernove Project Infrastructure Team",
     "_sphinx_theme": "alabaster",
     "_parent_project": "",
     "install_requires": "",

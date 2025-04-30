@@ -11,7 +11,7 @@ This package contains the Python software suite developed for use with the Roman
 
 
 If you have questions or concerns regarding the software, please create an issue in
-the github package repository at {{ cookiecutter.project_url + "/" + cookiecutter.package_name }}
+the github package repository at {{ cookiecutter._project_url + "/" + cookiecutter.package_name }}
 
 --------------------------------
 
@@ -21,6 +21,7 @@ the github package repository at {{ cookiecutter.project_url + "/" + cookiecutte
 
    installation.rst
    usage.rst
+   changes.rst
 
 
 
