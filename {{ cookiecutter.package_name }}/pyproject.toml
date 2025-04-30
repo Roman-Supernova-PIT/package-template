@@ -138,7 +138,8 @@ exclude_lines = [
 # This can be .rst or .md, towncrier's default template works with both.
 filename = "CHANGES.rst"
 directory = "changes"
-package = "{{ cookiecutter.module_name }}"
+package = "{{ cookiecutter.package_name }}"
+package_dir = "{{ cookiecutter.module_name }}"
 title_format = "{version} ({project_date})"
 ignore = [".gitkeep"]
 wrap = true

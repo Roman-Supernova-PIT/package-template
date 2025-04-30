@@ -2,6 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
+.project
+.pydevproject
+.vscode
+*code-workspace
 
 # C extensions
 *.so
@@ -21,6 +26,7 @@ sdist/
 var/
 wheels/
 share/python-wheels/
+pip-wheel-metadata/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -44,6 +50,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+.tmp/
 nosetests.xml
 coverage.xml
 *.cover
@@ -78,6 +85,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*/.ipynb_checkpoints/*.ipynb
 
 # IPython
 profile_default/
