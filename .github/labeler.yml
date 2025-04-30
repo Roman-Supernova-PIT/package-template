@@ -6,7 +6,6 @@ on:
       - opened
       - synchronize
 
-{% raw %}
 # needs pull_request_target to label forks
 jobs:
   labeler:
@@ -27,6 +26,7 @@ documentation:
       - 'docs/**/*'
       - '*.md'
       - '.readthedocs.yaml'
+      - 'LICENSE'
 
 installation:
   - changed-files:
@@ -52,5 +52,3 @@ testing:
       - '.github/workflows/*ci*.yml'
       - 'conftest.py'
       - 'tox.ini'
-
-{% endraw %}
