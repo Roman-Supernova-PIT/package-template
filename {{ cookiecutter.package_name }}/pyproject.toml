@@ -45,7 +45,10 @@ package_template_example = "{{ cookiecutter.module_name }}.example_mod:main"
 test = [
     "pytest",
     "pytest-doctestplus",
-    "pytest-cov"
+    "pytest-cov",
+    "requests",
+    "tox",
+    "devpi_process"
 ]
 docs = [
     "sphinx",

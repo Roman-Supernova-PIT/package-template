@@ -24,5 +24,15 @@
         "docs/_static",
         ".github/workflows",
         ".github/"
-    ]
+    ],
+    "__prompts__": {
+        "package_name": "Select your package name",
+        "module_name": "Select your module name",
+        "short_description": "Short description of your package",
+        "github_username": "GitHub username",
+        "full_name": "Author full name, this will be the primary maintainer",
+        "email": "Author email",
+        "use_compiled_extensions": "Return (y) if you have non-pythnn code that compiles",
+        "include_github_workflows": "Include github workflow testing code for your github repo"
+    }
 }
