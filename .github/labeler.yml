@@ -1,7 +1,7 @@
 # needs pull_request_target to label forks
 documentation:
   - changed-files:
-    - all-globs-to-any-file: ['*.rst', '!CHANGES.rst', '!licenses/LICENSE.rst']
+    - all-globs-to-any-file: ['*.rst', '!CHANGES.rst', '!licenses/LICENSE']
     - any-glob-to-any-file:
       - 'docs/**/*'
       - '**/*.md'
