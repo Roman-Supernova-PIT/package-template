@@ -150,6 +150,7 @@ exclude = [
     ".ruff_cache",
     ".vscode",
     "__pypackages__",
+    "docs",
 ]
 
 

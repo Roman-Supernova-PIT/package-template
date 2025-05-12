@@ -1,4 +1,3 @@
-import re
 from importlib.metadata import version, PackageNotFoundError
 {%- if cookiecutter.include_example_code == 'y' %}
 from .example_mod import do_primes
