@@ -2,6 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
+.project
+.pydevproject
+.vscode
+*code-workspace
 
 # C extensions
 *.so
@@ -21,15 +26,12 @@ sdist/
 var/
 wheels/
 share/python-wheels/
+pip-wheel-metadata/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
-{%- if cookiecutter.enable_dynamic_dev_versions == 'y' %}
 {{ cookiecutter.module_name }}/_version.py
-{% else %}
-{{ cookiecutter.module_name }}/version.py
-{% endif -%}
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -48,6 +50,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+.tmp/
 nosetests.xml
 coverage.xml
 *.cover
@@ -82,6 +85,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*/.ipynb_checkpoints/*.ipynb
 
 # IPython
 profile_default/

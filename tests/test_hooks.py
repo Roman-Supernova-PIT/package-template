@@ -41,14 +41,13 @@ def test_examples_present(cookiejar_examples):
 
 
 @pytest.mark.parametrize("license, lfile", [
-    ("BSD 3-Clause", "BSD3.rst")])
+    ("BSD 3-Clause", "LICENSE")])
 def test_licence(license, lfile, cookies):
     cj = cookies.bake(extra_context={'license': license})
 
-    assert (cj.project_path / "licenses" / "TEMPLATE_LICENSE.rst").exists()
-    assert (cj.project_path / "licenses" / "LICENSE.rst").exists()
+    assert (cj.project_path / "licenses" / "LICENSE").exists()
 
-    with open(cj.project_path / "licenses" / "LICENSE.rst") as fobj:
+    with open(cj.project_path / "licenses" / "LICENSE") as fobj:
         license_content = fobj.readlines()
 
     base_path = Path(".") / "{{ cookiecutter.package_name }}"
@@ -58,16 +57,3 @@ def test_licence(license, lfile, cookies):
         expected_content = fobj.readlines()
 
     assert expected_content[1:] == license_content[1:]
-
-
-def test_other_licence(cookies):
-    cj = cookies.bake(extra_context={'license': 'Other'})
-
-    assert (cj.project_path / "licenses" / "TEMPLATE_LICENSE.rst").exists()
-
-    assert not (cj.project_path / "licenses" / "LICENSE.rst").exists()
-
-    license_files = {"BSD 3-Clause": 'BSD3.rst'}
-
-    for name, lfile in license_files.items():
-        assert (cj.project_path / "licenses" / lfile).exists()

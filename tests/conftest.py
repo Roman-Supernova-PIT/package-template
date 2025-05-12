@@ -86,6 +86,5 @@ def bake_examples_compiled_dev_version(cookies):
     """
     result = cookies.bake(extra_context={"include_example_code": "y",
                                          "use_compiled_extensions": "y",
-                                         "enable_dynamic_dev_versions": "y",
                                          "author_name": "test"})
     return _handle_cookiecutter_errors(result)

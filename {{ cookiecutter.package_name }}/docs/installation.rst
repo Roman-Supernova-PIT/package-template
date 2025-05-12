@@ -32,20 +32,27 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git@github.com:{{ cookiecutter.pit_name }}/{{ cookiecutter.package_name }}.git
+    $ git clone git@github.com:{{ cookiecutter._pit_github_org }}/{{ cookiecutter.package_name }}.git
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL {{ cookiecutter.project_url }}/{{ cookiecutter.package_name }}/tarball/master
+    $ curl -OJL {{ cookiecutter._project_url }}/{{ cookiecutter.package_name }}/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
 
-    $ python setup.py install
+    $ pip install .
+
+If you would like to do an editable install:
+
+.. code-block:: console
+
+    $ pip install -e .
+    $ pip install -e .[docs]  # install document build packages during install
 
 
-.. _Github repo: {{ cookiecutter.project_url }}/{{ cookiecutter.package_name }}
-.. _tarball: {{ cookiecutter.project_url }}/{{ cookiecutter.package_name }}/tarball/master
+.. _Github repo: {{ cookiecutter._project_url }}/{{ cookiecutter.package_name }}
+.. _tarball: {{ cookiecutter._project_url }}/{{ cookiecutter.package_name }}/tarball/master
