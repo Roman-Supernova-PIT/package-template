@@ -1,9 +1,9 @@
 import re
 from importlib.metadata import version, PackageNotFoundError
-{%- if cookiecutter.include_example_code == 'y' %}
+{% if cookiecutter.include_example_code == 'y' %}
 from .example_mod import do_primes
 __all__ = ['do_primes']
-{% else -%}
+{% else %}
 __all__ = []
 {% endif %}
 
