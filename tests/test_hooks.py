@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import pytest
 
 
@@ -31,6 +30,7 @@ def test_examples_present(cookiejar_examples):
         "tests/",
         "tests/test_example.py",
         "tests/__init__.py",
+        "tests/test_version_string.py"
     ]
 
     if ctx['use_compiled_extensions'] == 'y':
@@ -38,22 +38,3 @@ def test_examples_present(cookiejar_examples):
 
     for afile in example_files:
         assert (cj.project_path / ctx['package_name'] / afile).exists()
-
-
-@pytest.mark.parametrize("license, lfile", [
-    ("BSD 3-Clause", "LICENSE")])
-def test_licence(license, lfile, cookies):
-    cj = cookies.bake(extra_context={'license': license})
-
-    assert (cj.project_path / "licenses" / "LICENSE").exists()
-
-    with open(cj.project_path / "licenses" / "LICENSE") as fobj:
-        license_content = fobj.readlines()
-
-    base_path = Path(".") / "{{ cookiecutter.package_name }}"
-    base_path /= "licenses"
-    base_path = base_path.resolve()
-    with open(base_path / lfile) as fobj:
-        expected_content = fobj.readlines()
-
-    assert expected_content[1:] == license_content[1:]

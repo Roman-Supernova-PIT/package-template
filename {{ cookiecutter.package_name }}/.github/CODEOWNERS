@@ -4,7 +4,7 @@
 
 # maintainers, add specifics of what you want to maintain for your package
 # the software-admins should remain owners of everything as above
-{% if cookiecutter.author_name and cookiecutter.github_username }
+{% if cookiecutter.author_name and cookiecutter.github_username %}
 /docs/** @{{ cookiecutter.github_username }}
 /changes/** @{{ cookiecutter.github_username}}
 {% endif %}

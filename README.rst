@@ -51,6 +51,9 @@ The template currently implements the following optional flags:
 * ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.
 * ``use_compiled_extensions``: This turns on the features needed to support compiled extensions
 
+Adapting an existing package to the package template
+====================================================
+
 (This procedure was written by Rob Knop.  If you are confused about it, are (quite rationally) afraid of it, or want help with it, ping him on the SNPIT slack.)
 
 If you already have a git repository and want to update it to use the Roman SN PIT template, some additional work is involved.  Suppose that your existing repo is named ``existing_repo``, and that you have a checkout in your current directory with that same name.
