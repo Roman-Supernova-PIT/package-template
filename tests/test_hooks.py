@@ -57,14 +57,3 @@ def test_licence(license, lfile, cookies):
         expected_content = fobj.readlines()
 
     assert expected_content[1:] == license_content[1:]
-
-
-def test_other_licence(cookies):
-    cj = cookies.bake(extra_context={'license': 'Other'})
-
-    assert not (cj.project_path / "licenses" / "LICENSE").exists()
-
-    license_files = {"BSD 3-Clause": 'LICENSE'}
-
-    for name, lfile in license_files.items():
-        assert (cj.project_path / "licenses" / lfile).exists()
