@@ -37,7 +37,7 @@ This will create a new directory in your current directory named the same as the
 .. code-block:: console
 
    $ cd <your package name>
-   $ git init
+   $ git init -b main
    $ pip install -e ".[docs,test]"
    $ cd docs
    $ make html
@@ -46,9 +46,13 @@ This will create a new directory in your current directory named the same as the
 This is required in order to have software versioning working for your package, and to test creating docs.
 
 The goal of the template is to quickly get you setup with the files described in the guide.
-The template currently implements the following optional flags, all of which default to off:
+The template currently implements the following optional flags:
 
-* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.
-* ``use_compiled_extensions``: This turns on the features needed to support compiled extensions
+* ``use_compiled_extensions``: If you've only written Python, leave this at 'n'.  If you have compiled extensions (e.g. C++ code that you link to Ptyhon with ``ctypes``), answer 'y' here.
+* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.  It defaults to 'y'.  Remember to remove the example code later if you don't really want it to be part of your package.
+* ``include_github_workflows``: Answer 'y' (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at 'y'.
+* ``install_requires``: Megan, what is this?
 
-
+When ``git add``ing files to your repo
+--------------------------------------
+You want to add everything created by the package template, and you probably want to do that the first time before you start adding your own files and customizing it.  However, if you created your clean environment in such a way that it created a new directory in your package directory, make sure *not* to import that environment into git!  (This will happen, for instance, if you run ``python -mvenv clean_environment``.  It will create a directory ``clean_environment`` under your current directory, which will end up with a lot of stuff you really don't want to track in git.)  As long as you didn't do that, you can probably just run ``git add .`` and trust the ``.gitignore`` file to not add most of the stuff you don't want.
