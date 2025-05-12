@@ -38,3 +38,4 @@ def test_examples_present(cookiejar_examples):
 
     for afile in example_files:
         assert (cj.project_path / ctx['package_name'] / afile).exists()
+
