@@ -273,11 +273,31 @@ TODO: instructions about creating a github archive and all that?  Probably no ne
 When you use the template, the file `.github/CODEOWNERS` will declare that the github group "Roman-Supernova-PIT/software-admins" is one of the owners of your repo.  In PRs, you will notice an error message if this group does not in fact have access to your repo.  So, unless you have a reason not to, give them access.  To do this, go to your repo's main page on github, and click on "Settings" (next to the gear icon) in the header.  Near the top of the left sidebar, find "Collaborations and teams"; click on that.  If you don't already see "software admins" as having access, click "Add teams".  Find "Roman-Supernova-PIT/software-admins" in the list of teams, and click on it.  On the page that comes up, give the software-admins team an appropriate role; given the name, you should probably just go ahead and let that group have the "Admin" role, so that if you go away, we will still be able to fully work with your github archive.  Click "Add Selection" once you've chosen the role.
 
 
+.. _adding-tests-to-github-workflow:
+   
 Adding tests to github workflow
 -------------------------------
 
-If you want the tests in ``<package_name>/tests`` to automatically run on pull requests, you can add a file to `.github/workflows` that defines these tests.  We recommend that you write the workflow to run tests within the `SN PIT environment <https://github.com/Roman-Supernova-PIT/environment>`_.
+.. |snpit_utils| replace:: ``snpit_utils``
+.. _snpit_utils: https://github.com/Roman-Supernova-PIT/snpit_utils
+.. |snpit_utils/tests| replace:: ``snpit_utils/tests``
+.. _snpit_utils/tests: https://github.com/Roman-Supernova-PIT/snpit_utils/tree/main/snpit_utils/tests
+.. |snpit_utils/.github/workflows| replace:: ``snipit_utils/.github/workflows``
+.. _snpit_utils/.github/workflows: https://github.com/Roman-Supernova-PIT/snpit_utils/tree/main/.github/workflows
 
-As an example of one such workflow, look at `this workflow file for snappl <https://github.com/Roman-Supernova-PIT/snappl/blob/u/rknop/pkg_template/.github/workflows/run_snappl_tests.yml>`_.  For something based off of this work, you need a file `docker_compose.yaml` in the ``<package_name>/tests`` file; see `snappl's docker_compose.yaml <https://github.com/Roman-Supernova-PIT/snappl/blob/u/rknop/pkg_template/snappl/tests/docker-compose.yaml>`_ for an example.
+If you want the tests in ``<package_name>/tests`` to automatically run on pull requests, you can add a file to `.github/workflows` that defines these tests.  If needed, contact one of the pipeline managers (including, but not limited to, Megan and Rob) for help with this.We recommend that you write the workflow to run tests within the `SN PIT environment <https://github.com/Roman-Supernova-PIT/environment>`_.
 
-If you look at that `docker_compose.yaml` file, you will notice that the entrypoint for the ``runtests`` service runs ``python -m setuptools_scm...``.  This is necessary if you've set up dynamic versioning; otherwise, when you ran the tests, a necessary version file would not be in there.  If you aren't running dyanmic versioning, your entrypoint can just be the ``pytest`` command.
+You can find an example in the |snpit_utils|_ repository.  There, look in the |snpit_utils/tests|_ subdirectory.  The files ``test_config.py`` and ``test_logger.py`` (at least) were written to test code in this repo.  The file ``docker-compose.py`` sets up a standard ``snpit`` docker environment to run the tests.  You may be able to adapt this ``docker-compose.py`` file, changing only the directory names (which may be as simple as replacing ``snpit_utils`` with the directory names for your repo).
+
+If you have a working ``docker-compose.py`` file in the ``tests`` directory of your repo, in that directory try running::
+
+  docker compose run runtests
+
+After a delay to pull down the ``snpit`` docker image, if you don't already have it on your system, you will see if your tests pass or fail... or if the whole process fails to run.  After you run your tests, clean up your system with::
+
+  docker compose down -v
+
+Once this is working, you need to add the actual github workflow file.  You can find an example of this file in the
+|snpit_utils/.github/workflows|_ subdirectory of the ``snpit_utils`` package.  Look at the file ``run_snpit_utils.tests.yml``.  Once again, it's possible that you can adapt this to your project by simply finding all instances of ``snpit_utils`` and replacing it with your module name.
+
+If you need help with the docker compose file, or with the github workflow file for running your tests in the snpit docker image, talk to Rob, who wrote these things for ``snpit_utils``.

@@ -51,13 +51,11 @@ The template currently implements the following optional flags:
 * ``use_compiled_extensions``: If you've only written Python, leave this at 'n'.  If you have compiled extensions (e.g. C++ code that you link to Ptyhon with ``ctypes``), answer 'y' here.
 * ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.  It defaults to 'y'.  Remember to remove the example code later if you don't really want it to be part of your package.
 * ``include_github_workflows``: Answer 'y' (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at 'y'.
-* ``install_requires``: Megan, what is this?
+* ``install_requires``: Here you can list additional external packages that your package requires.  Don't worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.
 
 When ``git add``ing files to your repo
 --------------------------------------
-
 You want to add everything created by the package template, and you probably want to do that the first time before you start adding your own files and customizing it.  However, if you created your clean environment in such a way that it created a new directory in your package directory, make sure *not* to import that environment into git!  (This will happen, for instance, if you run ``python -mvenv clean_environment``.  It will create a directory ``clean_environment`` under your current directory, which will end up with a lot of stuff you really don't want to track in git.)  As long as you didn't do that, you can probably just run ``git add .`` and trust the ``.gitignore`` file to not add most of the stuff you don't want.
-
 
 Adapting an existing package to the package template
 ====================================================
@@ -110,4 +108,3 @@ Next, some hand work is going to be required to make sure things are all in the 
 
 * Do a ``git status`` in the top level of your repo.  You should see lots of files that were added by importing the template.  You will also see moved and modified files.  ``git add`` the appropriate files, ``git commit``, and ``git push``.
   
-=======
