@@ -11,7 +11,8 @@ Where to keep tests
 -------------------
 
 We recommend placing the tests inside sub-folders called ``tests`` alongside the
-Python code they are meant to test - for example, the layout of the package might
+Python code they are meant to test - for example, the layout of the
+package (underneath the top level directory of the git checkout) might
 look like::
 
     my_package/__init__.py
