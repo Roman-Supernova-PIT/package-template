@@ -56,33 +56,15 @@ be a valid Python variable name, so cannot start with numbers and cannot include
 hyphens. Valid package names are ``example`` or ``my_package``. For the rest
 of this guide, we will assume the name of the module is ``my_package``.
 
-Once you have created this directory, the first file to create in it should be a
-file called ``__init__.py`` which will be the first code to be run when a user
-imports your package. For now, the only information we will add to this file is
-the version of the package, since users typically expect to be able to access
-``my_package.__version__`` to find out the current package version. While you
-could simply set e.g.
+A directory structure built from this package template will have a
+``__init__.py`` file all in place that may well be all that you need.
+If you know that you need additional things in your ``__init__.py``, add
+those things to the one the package template gives you.
 
-.. code-block:: python
+Among other things, the package template will set it up so that once
+your package is properly installed, your module will have a
+`__version__` property that is pulled from tags in the git archive.
 
-    __version__ = '1.2'
-
-in the ``__init__.py`` file, you then would need to make sure that the version
-number is in sync with the version number defined in the :ref:`pyproject` file,
-so a better approach is to put the following in your ``__init__.py`` file
-
-.. code-block:: python
-
-    from importlib.metadata import version as _version, PackageNotFoundError
-    try:
-        __version__ = _version(__name__)
-    except PackageNotFoundError:
-        pass
-
-This will automatically set ``__version__`` to the global version of the package
-declared in :ref:`pyproject` or set by the `setuptools_scm 
-<https://pypi.org/project/setuptools-scm/>`__ package (see :ref:`setup_py` and
-:ref:`pyproject` for more details).
 
 .. _pyproject:
 
@@ -93,6 +75,12 @@ The ``pyproject.toml`` file is where we will define the metadata about the packa
 At a minimum, this file should contain the ``[project]`` table (defined by
 `PEP621 <https://peps.python.org/pep-0621/>`_) and the ``[build-system]`` table
 (defined by `PEP518 <https://peps.python.org/pep-0518/>`__).
+
+The ``pyproject.toml`` file provided by the package template will
+provide most of what you need, so you will seed that much of what is
+described below is already in place.  You may need to add some
+dependencies to your package.
+
 
 ``[project]``
 ^^^^^^^^^^^^^
