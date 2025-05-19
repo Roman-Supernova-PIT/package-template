@@ -19,7 +19,7 @@ To create a new package based on the template run:
 It will ask you several questions:
 
 * *Select your package name* : This is the name your package will have on PyPi, and ``pip install <packagename>`` will be the command that somebody types in order to install it.
-* *Select your module name* : This is the name of the module.  To use your package, you will do ``pip install <modulename>``.  *Ideally* your module name is the same as your package name, and that's what it defaults to.  Making the two the same makes things simpler for everybody.  However, you may want to prefix your package (but not module) name with ``roman_snpit_``.  You may need to do this if your module name is too close to something that already exists on PyPi.
+* *Select your module name* : This is the name of the module.  To use your package in python, you will do ``import <modulename>``.  Ideally your module name is the same as your package name, and that's what it defaults to.  Making the two the same makes things simpler for everybody.  However, you may want to prefix your package (but not module) name with ``roman_snpit_``.  You may need to do this if your module name is too close to something that already exists on PyPi.
 * *Name of repo on github underneath Roman-Supernova-PIT* : Your github repo will be at ``https://github.com/Roman-Supernova-PIT/<reponame>``.  Ideally, this is the same as your module name, and that's what it defaults to.
 * *Short description of your package* : one-line description of your package.  Don't keep the default here, put something specific to your package in.
 * *Author Name* : If you are mostly writing this yourself, put your own name in.  Otherwise, put in Roman Supernova PIT.
@@ -29,7 +29,7 @@ It will ask you several questions:
 * *...non-python code that compiles*: If you've only written Python, leave this at 'n'.  If you have compiled extensions (e.g. C++ code that you link to Ptyhon with ``ctypes``), answer 'y' here.
 * *include example code* : This option will fill your new package with some example functions to allow you to test it.  It defaults to 'y'.  Remember to remove the example code later if you don't really want it to be part of your package.
 * *Include github workflow testing...* : Answer 'y' (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at 'y'.
-* *install_requres* : Here you can list additional external packages that your package requires.  Don't worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.
+* *install_requires* : Here you can list additional external packages that your package requires.  Don't worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.
 
 Cruft is built on cookiecutter, and enables the updating of the template from the source.
 This takes the form of pull requests to the repository that the new package is pushed to.
