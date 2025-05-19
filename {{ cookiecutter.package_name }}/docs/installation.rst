@@ -38,7 +38,7 @@ Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL {{ cookiecutter._project_url }}/{{ cookiecutter.package_name }}/tarball/master
+    $ curl -OJL {{ cookiecutter._project_url }}/{{ cookiecutter.github_snpit_repo_name }}/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -54,5 +54,5 @@ If you would like to do an editable install:
     $ pip install -e .[docs]  # install document build packages during install
 
 
-.. _Github repo: {{ cookiecutter._project_url }}/{{ cookiecutter.package_name }}
-.. _tarball: {{ cookiecutter._project_url }}/{{ cookiecutter.package_name }}/tarball/master
+.. _Github repo: {{ cookiecutter._project_url }}/{{ cookiecutter.github_snpit_repo_name }}
+.. _tarball: {{ cookiecutter._project_url }}/{{ cookiecutter.github_snpit_repo_name }}/tarball/master
