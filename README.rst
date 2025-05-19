@@ -18,7 +18,7 @@ To create a new package based on the template run:
 
 It will ask you several questions:
 
-* *Select your package name* : This is the name your package will have on PyPi, and ``pip install <packagename>`` will be the command that somebody types in order to install it.
+* *Select your package name* : This is the name your package will have on PyPi, and ``pip install <packagename>`` will be the command that somebody types in order to install it.  (It will also be the name of the directory that gets created, ready for you to start putting code into.)
 * *Select your module name* : This is the name of the module.  To use your package in python, you will do ``import <modulename>``.  Ideally your module name is the same as your package name, and that's what it defaults to.  Making the two the same makes things simpler for everybody.  However, you may want to prefix your package (but not module) name with ``roman_snpit_``.  You may need to do this if your module name is too close to something that already exists on PyPi.
 * *Name of repo on github underneath Roman-Supernova-PIT* : Your github repo will be at ``https://github.com/Roman-Supernova-PIT/<reponame>``.  Ideally, this is the same as your module name, and that's what it defaults to.
 * *Short description of your package* : one-line description of your package.  Don't keep the default here, put something specific to your package in.
