@@ -32,7 +32,7 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git@github.com:{{ cookiecutter._pit_github_org }}/{{ cookiecutter.package_name }}.git
+    $ git clone git@github.com:{{ cookiecutter._pit_github_org }}/{{ cookiecutter.github_snpit_repo_name }}.git
 
 Or download the `tarball`_:
 
