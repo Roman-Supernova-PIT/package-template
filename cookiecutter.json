@@ -29,6 +29,7 @@
     "__prompts__": {
         "package_name": "Select your package name",
         "module_name": "Select your module name",
+        "github_snpit_repo_name": "Name of repo on github underneath Roman-Supernova-PIT",
         "short_description": "Short description of your package",
         "github_username": "GitHub username",
         "full_name": "Author full name, this will be the primary maintainer",
