@@ -38,19 +38,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # -- Options for HTML output -------------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = 'alabaster'
-
-html_theme_options = {
-    "description": "Roman Supernova PIT Python packaging guide and template.",
-    "code_font_family": "'Fira Code', monospace",
-    "github_user": "",
-    "github_repo": "package-template",
-    "sidebar_width": "300px"
-}
-
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -70,6 +57,10 @@ html_sidebars = {
     ]
 }
 html_theme_options = {
+    "description": "Roman Supernova PIT Python packaging guide and template.",
+    "code_font_family": "'Fira Code', monospace",
+    "github_user": "",
+    "github_repo": "package-template",
     'fixed_sidebar': True,
     'logo': "logo_black_filled.png",
     'logo_text_align': "left",

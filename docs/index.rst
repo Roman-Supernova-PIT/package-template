@@ -8,6 +8,7 @@ This guide is intended to explain modern Python packaging, it covers most of the
 
    minimal
    docs
+   checklist
    tests
    checklist
    tox
@@ -50,8 +51,9 @@ Change into this directory and run ``git init`` to make it into a git repository
 This is required in order to have software versioning working for your package.
 
 The goal of the template is to quickly get you setup with the files described in the guide.
-The template currently implements the following optional flags, all of which default to off:
+The template currently implements the following optional flags:
 
-* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.
-* ``use_compiled_extensions``: This turns on the features needed to support compiled extensions as described in :ref:`extensions`.
-* ``enable_dynamic_dev_versions``: This enables a feature which ensures that ``my_package.__version__`` always returns the current git version as calculated by ``setuptools_scm`` when the package is installed as an editable install. See :ref:`dev-versions` for more details.
+* ``use_compiled_extensions``: If you've only written Python, leave this at 'n'.  If you have compiled extensions (e.g. C++ code that you link to Ptyhon with ``ctypes``), answer 'y' here.
+* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.  It defaults to 'y'.  Remember to remove the example code later if you don't really want it to be part of your package.
+* ``include_github_workflows``: Answer 'y' (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at 'y'.
+* ``install_requires``: Here you can list additional external packages that your package requires.  Don't worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.

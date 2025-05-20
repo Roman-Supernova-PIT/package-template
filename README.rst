@@ -48,27 +48,38 @@ This is required in order to have software versioning working for your package, 
 The goal of the template is to quickly get you setup with the files described in the guide.
 The template currently implements the following optional flags:
 
-* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.
-* ``use_compiled_extensions``: This turns on the features needed to support compiled extensions
+* ``use_compiled_extensions``: If you've only written Python, leave this at 'n'.  If you have compiled extensions (e.g. C++ code that you link to Ptyhon with ``ctypes``), answer 'y' here.
+* ``include_example_code``: This option will fill your new package with some example functions to allow you to test it.  It defaults to 'y'.  Remember to remove the example code later if you don't really want it to be part of your package.
+* ``include_github_workflows``: Answer 'y' (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at 'y'.
+* ``install_requires``: Here you can list additional external packages that your package requires.  Don't worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.
+
+When ``git add``ing files to your repo
+--------------------------------------
+You want to add everything created by the package template, and you probably want to do that the first time before you start adding your own files and customizing it.  However, if you created your clean environment in such a way that it created a new directory in your package directory, make sure *not* to import that environment into git!  (This will happen, for instance, if you run ``python -mvenv clean_environment``.  It will create a directory ``clean_environment`` under your current directory, which will end up with a lot of stuff you really don't want to track in git.)  As long as you didn't do that, you can probably just run ``git add .`` and trust the ``.gitignore`` file to not add most of the stuff you don't want.
+
+Adapting an existing package to the package template
+====================================================
 
 (This procedure was written by Rob Knop.  If you are confused about it, are (quite rationally) afraid of it, or want help with it, ping him on the SNPIT slack.)
 
 If you already have a git repository and want to update it to use the Roman SN PIT template, some additional work is involved.  Suppose that your existing repo is named ``existing_repo``, and that you have a checkout in your current directory with that same name.
 
-**Before you start**: make sure everything in your current repo is committed and pushed.  That way, if you screw something up, you can always start over by cloning your repo back from github.  This is a fiddly enough process that screwing something up is distressingly likely.  I also recommend doing this all on a new branch of your repo, which you can merge back to ``main`` when you're done.
+**Before you start**: do two things.  First, make sure everything in your current repo is committed and pushed.  That way, if you screw something up, you can always start over by cloning your repo back from github.  This is a fiddly enough process that screwing something up is distressingly likely.  I also recommend doing this all on a new branch of your repo, which you can merge back to ``main`` when you're done.
 
-Start in the directory that is the parent of where your existing repo is checked out.  (I.e. the directory in which you would do ``cd existing_repo`` in order to get to your checkout.)  Run:
+Second, make sure you understand the file structure and directory layout of a package created from the package template.  Read the documentation on the package template, in partciular the "Minimal package layout" section.  (TODO: link to docs.)
+
+Once you're ready to go, start in the directory that is the parent of where your existing repo is checked out.  (I.e. the directory in which you would do ``cd existing_repo`` in order to get to your checkout.)  Run:
 
 .. code-block:: console
 
    $ pip install cookiecutter cruft
    $ cruft create https://github.com/Roman-Supernova-PIT/package-template --output_dir existing_repo_template
 
-replacing ``existing_repo`` with the name of your package.  When asked for your package and module name, give it the name of your existing repo (``existing_repo`` in this example).  See above for answering the other various questions to you get.  This will create a directory ``existing_repo_template``, which in turn has a subdirectory ``existing_repo`` (again, as always, replacing ``existing_repo`` with the name of your package).
+replacing ``existing_repo`` with the name of your package.  Notice that you are *not* creating the template in the same diredctory, but a new directory with ``_template`` appended to the end.  When asked for your package and module name, give it the name of your existing repo (``existing_repo`` in this example); the package name is what it will be called on PyPi, and the module name is the thing you ``import`` in python.  Often, but not always, these are the same.  See below for answering the other various questions to you get.  Running this ``cruft`` command will create a directory ``existing_repo_template``, which in turn has a subdirectory ``existing_repo`` (again, as always, replacing ``existing_repo`` with the name of your package).
 
-Next, some hand work is going to be required to make sure things are all in the right format.  In your existing repo (your checkout of which you have probably renamed— ``existing_repo_backup`` in this directory), do the following:
+Next, some hand work is going to be required to make sure things are all in the right format.  In your existing repo do the following:
 
-* If it's not there already, move (using ``git mv``) all the code that comprises the content of your package into a subdirectory with the same name as the repo (``existing_repo`` in this example— so, your code would now be in ``existing_repo/existing_repo`` relative to the directory where you clone stuff from github).
+* If it's not there already, move (using ``git mv``) all the code that comprises the content of your package into a subdirectory with *module name* as the repo (``existing_repo`` in this example— so, your code would now be in ``existing_repo/existing_repo`` relative to the directory where you clone stuff from github).
 
 * In this subdirectory, if you have a file ``__init__.py``, rename it to ``__init__.py-BACKUP``.  (Don't do this with ``git mv``, just do a standard ``mv``.  Yes, you're making a mess out of your checkout, but you'll clean it up later.)
 
@@ -83,7 +94,7 @@ Next, some hand work is going to be required to make sure things are all in the 
 * Try running::
     rsync -n -a -v -i ../existing_repo_template/existing_repo/ ./
 
-  as always replacing ``existing_repo`` with the name of your own repo.  This will not actually copy any files; the ``-n`` makes it a dry run.  This will tell you what will get copied from the package template to your current directory.  The output is a little bit byzantine, but the key is to look for lines that do *not* start with either ``.d..t......`` (which just indicates a directory), or ``>f+++++++++``.  Lines that start with the latter describe a file that does not exist in your current directory and that will be copied over from the template.  This is all good!  If there are any other lines that start with ``>f`` but do *not* have the row of plusses, then those are files that already exist in your current directory that will be overwritten when you import the template.  If you know what you're doing, you can just let this happen.  However, what you should probably do instead is rename that file from ``<filename>`` to ``<filename>-BACKUP`` so that you're current changes won't get overwritten.  (You will merge this later.)  When you've done this, run the above ``rsync`` command again to make sure everything in the output is either a directory, something you are very confident you want to overwrite, or something that starts with ``>f+++++++++``.
+  as always replacing ``existing_repo`` with the name of your own repo.  This will not actually copy any files; the ``-n`` makes it a dry run.  This will tell you what will get copied from the package template to your current directory.  The output is a little bit byzantine, but the key is to look for lines that do *not* start with either ``.d..t......`` (which just indicates a directory), or ``>f+++++++++``.  Lines that start with the latter describe a file that does not exist in your current directory and that will be copied over from the template.  This is all good!  If there are any other lines that start with ``>f`` but do *not* have the row of plusses, then those are files that already exist in your current directory that will be overwritten when you import the template.  If you really know what you're doing, you can just let this happen.  However, what you should probably do instead is rename that file from ``<filename>`` to ``<filename>-BACKUP`` so that you're current changes won't get overwritten.  (You will merge this later.)  When you've done this, run the above ``rsync`` command again to make sure everything in the output is either a directory, something you are very confident you want to overwrite, or something that starts with ``>f+++++++++``.
 
 * Once you're confident you're not going to overwrite anything you don't want to, run::
     rsync -a -v -i ../existing_repo_template/existing_repl/ ./
