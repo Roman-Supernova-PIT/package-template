@@ -165,8 +165,22 @@
 <span class="gp">$ </span>cruft<span class="w"> </span>create<span class="w"> </span>https://github.com/Roman-Supernova-PIT/package-template
 </pre></div>
 </div>
-<p>and go through the steps offered in the cli naming your package and filling in your details.
-Cruft is built on cookiecutter, and enables the updating of the template from the source.
+<p>It will ask you several questions:</p>
+<ul class="simple">
+<li><p><em>Select your package name</em> : This is the name your package will have on PyPi, and <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&lt;packagename&gt;</span></code> will be the command that somebody types in order to install it.  (It will also be the name of the directory that gets created, ready for you to start putting code into.)</p></li>
+<li><p><em>Select your module name</em> : This is the name of the module.  To use your package in python, you will do <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">&lt;modulename&gt;</span></code>.  Ideally your module name is the same as your package name, and that’s what it defaults to.  Making the two the same makes things simpler for everybody.  However, you may want to prefix your package (but not module) name with <code class="docutils literal notranslate"><span class="pre">roman_snpit_</span></code>.  You may need to do this if your module name is too close to something that already exists on PyPi.</p></li>
+<li><p><em>Name of repo on github underneath Roman-Supernova-PIT</em> : Your github repo will be at <code class="docutils literal notranslate"><span class="pre">https://github.com/Roman-Supernova-PIT/&lt;reponame&gt;</span></code>.  Ideally, this is the same as your module name, and that’s what it defaults to.</p></li>
+<li><p><em>Short description of your package</em> : one-line description of your package.  Don’t keep the default here, put something specific to your package in.</p></li>
+<li><p><em>Author Name</em> : If you are mostly writing this yourself, put your own name in.  Otherwise, put in Roman Supernova PIT.</p></li>
+<li><p><em>Author Email</em> : This is a contact person for this package.  Hopefully it will never get used, but somebody might need to ask about it.  Put the email of the person who should receive those questions here.</p></li>
+<li><p><em>GitHub username</em> : Your github username, or the github username of the person who will be the primary owner of this package.</p></li>
+<li><p><em>Select minimum python version</em> : Select 1 for 3.11 here if that’s at all possible, as that’s the environment we’re using for the SN PIT.  Only pick a higher version if you <em>really</em> need it.</p></li>
+<li><p><em>…non-python code that compiles</em>: If you’ve only written Python, leave this at ‘n’.  If you have compiled extensions (e.g. C++ code that you link to Ptyhon with <code class="docutils literal notranslate"><span class="pre">ctypes</span></code>), answer ‘y’ here.</p></li>
+<li><p><em>include example code</em> : This option will fill your new package with some example functions to allow you to test it.  It defaults to ‘y’.  Remember to remove the example code later if you don’t really want it to be part of your package.</p></li>
+<li><p><em>Include github workflow testing…</em> : Answer ‘y’ (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at ‘y’.</p></li>
+<li><p><em>install_requires</em> : Here you can list additional external packages that your package requires.  Don’t worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.</p></li>
+</ul>
+<p>Cruft is built on cookiecutter, and enables the updating of the template from the source.
 This takes the form of pull requests to the repository that the new package is pushed to.
 If a package already has a cookiecutter template, it can be linked to the parent repository using <code class="docutils literal notranslate"><span class="pre">cruft</span> <span class="pre">link</span> <span class="pre">url-to-template</span></code>.</p>
 <p>To manually check whether the current environment matches with the template then <code class="docutils literal notranslate"><span class="pre">cruft</span> <span class="pre">check</span></code> will tell you what the current status is.
@@ -176,16 +190,20 @@ If a package already has a cookiecutter template, it can be linked to the parent
 <span class="gp">$ </span>cookiecutter<span class="w"> </span>gh:Roman-Supernova-PIT/package-template<span class="w"> </span>-o<span class="w"> </span>./output_directory
 </pre></div>
 </div>
-<p>This will create a new directory in your current directory named the same as the value of “packagename” you supplied.
-Change into this directory and run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code> to make it into a git repository, and make an initial commit.
-This is required in order to have software versioning working for your package.</p>
-<p>The goal of the template is to quickly get you setup with the files described in the guide.
-The template currently implements the following optional flags, all of which default to off:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">include_example_code</span></code>: This option will fill your new package with some example functions to allow you to test it.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">use_compiled_extensions</span></code>: This turns on the features needed to support compiled extensions as described in <a class="reference internal" href="extensions.html#extensions"><span class="std std-ref">Compiled C/Cython extensions</span></a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">enable_dynamic_dev_versions</span></code>: This enables a feature which ensures that <code class="docutils literal notranslate"><span class="pre">my_package.__version__</span></code> always returns the current git version as calculated by <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> when the package is installed as an editable install. See <a class="reference internal" href="advanced/versioning.html#dev-versions"><span class="std std-ref">Dynamic Development Versions</span></a> for more details.</p></li>
-</ul>
+<p>This will create a new directory in your current directory named the same as the value of “packagename” you supplied. Change into this directory and run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code> to make it into a git repository, and make an initial commit. Then pip install into a clean environment and try building docs:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>&lt;your<span class="w"> </span>package<span class="w"> </span>name&gt;
+<span class="gp">$ </span>git<span class="w"> </span>init<span class="w"> </span>-b<span class="w"> </span>main
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs,test]&quot;</span>
+<span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>docs
+<span class="gp">$ </span>make<span class="w"> </span>html
+</pre></div>
+</div>
+<p>This is required in order to have software versioning working for your package, and to test creating docs.</p>
+<p>The goal of the template is to quickly get you setup with the files described in the guide.</p>
+<section id="when-git-add-ing-files-to-your-repo">
+<h2>When <a href="#id1"><span class="problematic" id="id2">``</span></a>git add``ing files to your repo<a class="headerlink" href="#when-git-add-ing-files-to-your-repo" title="Link to this heading">¶</a></h2>
+<p>You want to add everything created by the package template, and you probably want to do that the first time before you start adding your own files and customizing it.  However, if you created your clean environment in such a way that it created a new directory in your package directory, make sure <em>not</em> to import that environment into git!  (This will happen, for instance, if you run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-mvenv</span> <span class="pre">clean_environment</span></code>.  It will create a directory <code class="docutils literal notranslate"><span class="pre">clean_environment</span></code> under your current directory, which will end up with a lot of stuff you really don’t want to track in git.)  As long as you didn’t do that, you can probably just run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> and trust the <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file to not add most of the stuff you don’t want.</p>
+</section>
 </section>
 
 
