@@ -80,7 +80,7 @@ Once you're ready to go, start in the directory that is the parent of where your
 .. code-block:: console
 
    $ pip install cookiecutter cruft
-   $ cruft create https://github.com/Roman-Supernova-PIT/package-template --output_dir existing_repo_template
+   $ cruft create https://github.com/Roman-Supernova-PIT/package-template --output-dir existing_repo_template
 
 replacing ``existing_repo`` with the name of your package.  Notice that you are *not* creating the template in the same diredctory, but a new directory with ``_template`` appended to the end.  When asked for your package and module name, give it the name of your existing repo (``existing_repo`` in this example); the package name is what it will be called on PyPi, and the module name is the thing you ``import`` in python.  Often, but not always, these are the same.  See below for answering the other various questions to you get.  Running this ``cruft`` command will create a directory ``existing_repo_template``, which in turn has a subdirectory ``existing_repo`` (again, as always, replacing ``existing_repo`` with the name of your package).
 
