@@ -1,6 +1,7 @@
 {
     "package_name": "packagename",
     "module_name": "{{ cookiecutter.package_name|lower()|replace(' ', '_')|replace('-', '_') }}",
+    "github_snpit_repo_name": "{{ cookiecutter.module_name|lower()|replace(' ','_')|replace('-','_') }}",
     "short_description": "Developed by the Roman Supernova PIT",
     "author_name": "",
     "author_email": "",
@@ -28,11 +29,12 @@
     "__prompts__": {
         "package_name": "Select your package name",
         "module_name": "Select your module name",
+        "github_snpit_repo_name": "Name of repo on github underneath Roman-Supernova-PIT",
         "short_description": "Short description of your package",
         "github_username": "GitHub username",
         "full_name": "Author full name, this will be the primary maintainer",
         "email": "Author email",
-        "use_compiled_extensions": "Return (y) if you have non-pythnn code that compiles",
+        "use_compiled_extensions": "Return (y) if you have non-python code that compiles",
         "include_github_workflows": "Include github workflow testing code for your github repo"
     }
 }
