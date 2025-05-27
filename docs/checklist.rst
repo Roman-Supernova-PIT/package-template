@@ -98,7 +98,7 @@ After merging the PR to main — bump the version if appropriate
 
 (If you're nervous about this, talk to one of the pipeline managers (including, but not limited to, Megan and Rob) about what to do.)
 
-There may be further changes to the branch of your PR based on code reviews.  Once all of that is done and you're ready to merge to main, you probably need to do one more thing: bump the version.
+After all code reviews and modifications are done and you have merged to `main`, you most likely will need to bump the version of the software.  This will affect the version that is attached to the software if a pip package is built, for example.
 
 Figure out what the current version of the package is by running::
 
@@ -111,3 +111,4 @@ That will list the tags that are currently defined for the repo.  Find the ones 
   git tag 1.10.1
   git push origin --tags
 
+That will push the new tag you made to the `main` branch on the github archive.  Thereaftrer, if somebody builds a package from that commit of the git archive, that package will bake into it the version in the tag you just created.

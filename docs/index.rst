@@ -10,6 +10,7 @@ This guide is intended to explain modern Python packaging, it covers most of the
    docs
    checklist
    tests
+   checklist
    tox
    extensions
    releasing
