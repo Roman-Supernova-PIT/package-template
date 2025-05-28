@@ -9,6 +9,7 @@ This guide is intended to explain modern Python packaging, it covers most of the
    minimal
    docs
    tests
+   checklist
    tox
    extensions
    releasing
@@ -73,6 +74,6 @@ This is required in order to have software versioning working for your package, 
 
 The goal of the template is to quickly get you setup with the files described in the guide.
 
-When ``git add``ing files to your repo
---------------------------------------
+When running ``git add`` in your repo
+-------------------------------------
 You want to add everything created by the package template, and you probably want to do that the first time before you start adding your own files and customizing it.  However, if you created your clean environment in such a way that it created a new directory in your package directory, make sure *not* to import that environment into git!  (This will happen, for instance, if you run ``python -mvenv clean_environment``.  It will create a directory ``clean_environment`` under your current directory, which will end up with a lot of stuff you really don't want to track in git.)  As long as you didn't do that, you can probably just run ``git add .`` and trust the ``.gitignore`` file to not add most of the stuff you don't want.

@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="minimal.html">Minimal package layout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs.html">Documenting your Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">Testing your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checklist.html">Checklist for creating a PR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tox.html">Running Commands with Tox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extensions.html">Compiled C/Cython extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing Your Package</a></li>
@@ -107,6 +108,8 @@
 <li class="toctree-l2"><a class="reference internal" href="minimal.html#setup-py"><code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="minimal.html#manifest-in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="minimal.html#trying-out-your-package">Trying out your package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="minimal.html#adding-your-package-to-github">Adding your package to github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="minimal.html#adding-tests-to-github-workflow">Adding tests to github workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docs.html">Documenting your Package</a><ul>
@@ -124,6 +127,16 @@
 <li class="toctree-l2"><a class="reference internal" href="tests.html#defining-default-pytest-options">Defining default pytest options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.html#running-doctests">Running doctests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.html#declaring-dependencies-for-tests">Declaring dependencies for tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="checklist.html">Checklist for creating a PR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#edit-your-code">Edit your code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#write-tests">Write tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#create-the-pr">Create the PR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#add-a-news-fragment">Add a news fragment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#make-sure-automatic-checks-pass">Make sure automatic checks pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#merge-the-pr">Merge the PR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checklist.html#after-merging-the-pr-to-main-bump-the-version-if-appropriate">After merging the PR to main — bump the version if appropriate</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tox.html">Running Commands with Tox</a><ul>
@@ -200,8 +213,8 @@ If a package already has a cookiecutter template, it can be linked to the parent
 </div>
 <p>This is required in order to have software versioning working for your package, and to test creating docs.</p>
 <p>The goal of the template is to quickly get you setup with the files described in the guide.</p>
-<section id="when-git-add-ing-files-to-your-repo">
-<h2>When <a href="#id1"><span class="problematic" id="id2">``</span></a>git add``ing files to your repo<a class="headerlink" href="#when-git-add-ing-files-to-your-repo" title="Link to this heading">¶</a></h2>
+<section id="when-running-git-add-in-your-repo">
+<h2>When running <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> in your repo<a class="headerlink" href="#when-running-git-add-in-your-repo" title="Link to this heading">¶</a></h2>
 <p>You want to add everything created by the package template, and you probably want to do that the first time before you start adding your own files and customizing it.  However, if you created your clean environment in such a way that it created a new directory in your package directory, make sure <em>not</em> to import that environment into git!  (This will happen, for instance, if you run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-mvenv</span> <span class="pre">clean_environment</span></code>.  It will create a directory <code class="docutils literal notranslate"><span class="pre">clean_environment</span></code> under your current directory, which will end up with a lot of stuff you really don’t want to track in git.)  As long as you didn’t do that, you can probably just run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> and trust the <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file to not add most of the stuff you don’t want.</p>
 </section>
 </section>

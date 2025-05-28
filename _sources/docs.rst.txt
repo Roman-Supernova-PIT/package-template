@@ -50,31 +50,59 @@ Narrative Documentation
 -----------------------
 
 Second, you should write a set of narrative documentation which functions as a
-user guide, such as http://docs.astropy.org or http://docs.sunpy.org. For this
-we recommend making use
-of the `Sphinx <http://www.sphinx-doc.org/>`_ tool and storing your documentation
-inside a ``docs`` directory.
+user guide, such as http://docs.astropy.org or http://docs.sunpy.org.
+This package template will create the basis for this.  You will find
+that in the ``docs`` directory under the top level of your repo.  You
+will want to edit the following files to make them correct for your
+package:
 
-To set this up, first install the Sphinx package, then create a ``docs`` directory
-and run ``sphinx-quickstart`` inside it::
+* ``installation.rst`` -- with luck, the stuff that is there already is
+  sufficient, but you should review it.
 
-    $ mkdir docs
-    $ cd docs
-    $ sphinx-quickstart
+* ``usage.rst`` -- This is where you will write your main documentation.
 
-We recommend answering ``n`` for the question of whether to separate
-source and build directories. Once you have run this, you should see the following files
-inside your ``docs`` directory::
+* ``index.rst`` -- This one may be OK as is, but you will need to edit
+  it if your documentation is long (see below).
 
-    Makefile
-    conf.py
-    index.rst
-    make.bat
+If your documentation is short enough, you can write it all on the
+``usage.rst`` page.  If it's long, you might want to divide it into
+sections.  Give each section its own ``.rst`` file.  Then, list the
+files you've added underneath the ``..tocktree::`` directive in the file
+``index.rst``.
 
-The ``index.rst`` file is the root of your documentation. You can start writing content
-in it and you can also start adding more ``.rst`` pages if needed. If you haven't used
-Sphinx before, we recommend taking a look at their
+All of these files are in `Sphinx reStructuredText format
+<https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_.
+If you haven't used Sphinx before, you maybe interested in their
 `Getting Started <http://www.sphinx-doc.org/en/master/usage/quickstart.html>`_ guide.
+
+Seeing your documentation
+*************************
+
+**NOTE TO MEGAN** this is currently broken for me.  ``make html`` works
+for me in the package template, However, when I make a new package
+straight from the package template and try this, I get a lot of errors.
+I was able to get it to work in ``snpit_utils`` by also doing ``pip
+install -e .`` in my venv, so that it could find that module.  However,
+it didn't automatically include the docstrings in the created html
+documentation.
+
+The package template includes much (perhaps everything) of what you need
+to build the packages locally.  First, unless you are sure you already
+have everything for building the docs in your python environment, make
+yourself a virtual environment (either with conda or python venv) to
+work in.  In that environment, and at the top level of your repo
+checkout, run::
+
+  pip install -e ".[docs]"
+
+then in the `docs` directory run::
+
+  make html
+
+That will create a subdirectory ``_build/html`` underneath the ``docs``
+directory.  Open the file ``index.html`` in that subdirectory in your
+web browser, and you should see a preview of your documentation.
+
 
 .. _automodapi:
 
@@ -86,7 +114,14 @@ Application programming interface (API) page which lists the available classes,
 methods, and functions in your package. Thankfully, if you've defined your docstrings
 as described in :ref:`docstrings`, then this can be automated using the
 `sphinx-automodapi <https://sphinx-automodapi.readthedocs.io>`_
-package. See the documentation of that package for more details, but briefly,
+package. See the documentation of that package for more details, but a
+repo created from this package template should already be set up to
+automatically include this.
+
+
+
+
+briefly,
 you will need to add ``'sphinx_automodapi.automodapi'`` to the ``extensions``
 variable in your ``conf.py`` file:
 
@@ -136,6 +171,9 @@ dependencies.
 
 Setting up ReadTheDocs
 ----------------------
+
+**NOTE FOR MEGAN** : isn't this section out of date?  I thought we
+weren't going to use readthedocs.
 
 `ReadTheDocs <http://readthedocs.org/>`__ is a platform that will build
 documentation with sphinx and will then host it, and is used by many of

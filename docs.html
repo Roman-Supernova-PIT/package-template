@@ -57,6 +57,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">Testing your package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checklist.html">Checklist for creating a PR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tox.html">Running Commands with Tox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extensions.html">Compiled C/Cython extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing Your Package</a></li>
@@ -150,30 +151,52 @@ objects they document.</p>
 <section id="narrative-documentation">
 <span id="narrative"></span><h2>Narrative Documentation<a class="headerlink" href="#narrative-documentation" title="Link to this heading">¶</a></h2>
 <p>Second, you should write a set of narrative documentation which functions as a
-user guide, such as <a class="reference external" href="http://docs.astropy.org">http://docs.astropy.org</a> or <a class="reference external" href="http://docs.sunpy.org">http://docs.sunpy.org</a>. For this
-we recommend making use
-of the <a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a> tool and storing your documentation
-inside a <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory.</p>
-<p>To set this up, first install the Sphinx package, then create a <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory
-and run <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> inside it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir docs
-$ cd docs
-$ sphinx-quickstart
-</pre></div>
-</div>
-<p>We recommend answering <code class="docutils literal notranslate"><span class="pre">n</span></code> for the question of whether to separate
-source and build directories. Once you have run this, you should see the following files
-inside your <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Makefile</span>
-<span class="n">conf</span><span class="o">.</span><span class="n">py</span>
-<span class="n">index</span><span class="o">.</span><span class="n">rst</span>
-<span class="n">make</span><span class="o">.</span><span class="n">bat</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">index.rst</span></code> file is the root of your documentation. You can start writing content
-in it and you can also start adding more <code class="docutils literal notranslate"><span class="pre">.rst</span></code> pages if needed. If you haven’t used
-Sphinx before, we recommend taking a look at their
+user guide, such as <a class="reference external" href="http://docs.astropy.org">http://docs.astropy.org</a> or <a class="reference external" href="http://docs.sunpy.org">http://docs.sunpy.org</a>.
+This package template will create the basis for this.  You will find
+that in the <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory under the top level of your repo.  You
+will want to edit the following files to make them correct for your
+package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">installation.rst</span></code> – with luck, the stuff that is there already is
+sufficient, but you should review it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usage.rst</span></code> – This is where you will write your main documentation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index.rst</span></code> – This one may be OK as is, but you will need to edit
+it if your documentation is long (see below).</p></li>
+</ul>
+<p>If your documentation is short enough, you can write it all on the
+<code class="docutils literal notranslate"><span class="pre">usage.rst</span></code> page.  If it’s long, you might want to divide it into
+sections.  Give each section its own <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file.  Then, list the
+files you’ve added underneath the <code class="docutils literal notranslate"><span class="pre">..tocktree::</span></code> directive in the file
+<code class="docutils literal notranslate"><span class="pre">index.rst</span></code>.</p>
+<p>All of these files are in <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">Sphinx reStructuredText format</a>.
+If you haven’t used Sphinx before, you maybe interested in their
 <a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/quickstart.html">Getting Started</a> guide.</p>
+<section id="seeing-your-documentation">
+<h3>Seeing your documentation<a class="headerlink" href="#seeing-your-documentation" title="Link to this heading">¶</a></h3>
+<p><strong>NOTE TO MEGAN</strong> this is currently broken for me.  <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> works
+for me in the package template, However, when I make a new package
+straight from the package template and try this, I get a lot of errors.
+I was able to get it to work in <code class="docutils literal notranslate"><span class="pre">snpit_utils</span></code> by also doing <code class="docutils literal notranslate"><span class="pre">pip</span>
+<span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> in my venv, so that it could find that module.  However,
+it didn’t automatically include the docstrings in the created html
+documentation.</p>
+<p>The package template includes much (perhaps everything) of what you need
+to build the packages locally.  First, unless you are sure you already
+have everything for building the docs in your python environment, make
+yourself a virtual environment (either with conda or python venv) to
+work in.  In that environment, and at the top level of your repo
+checkout, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;.[docs]&quot;</span>
+</pre></div>
+</div>
+<p>then in the <cite>docs</cite> directory run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>That will create a subdirectory <code class="docutils literal notranslate"><span class="pre">_build/html</span></code> underneath the <code class="docutils literal notranslate"><span class="pre">docs</span></code>
+directory.  Open the file <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in that subdirectory in your
+web browser, and you should see a preview of your documentation.</p>
+</section>
 </section>
 <section id="including-docstrings-in-the-narrative-documentation">
 <span id="automodapi"></span><h2>Including docstrings in the narrative documentation<a class="headerlink" href="#including-docstrings-in-the-narrative-documentation" title="Link to this heading">¶</a></h2>
@@ -182,7 +205,10 @@ Application programming interface (API) page which lists the available classes,
 methods, and functions in your package. Thankfully, if you’ve defined your docstrings
 as described in <a class="reference internal" href="#docstrings"><span class="std std-ref">Docstrings</span></a>, then this can be automated using the
 <a class="reference external" href="https://sphinx-automodapi.readthedocs.io">sphinx-automodapi</a>
-package. See the documentation of that package for more details, but briefly,
+package. See the documentation of that package for more details, but a
+repo created from this package template should already be set up to
+automatically include this.</p>
+<p>briefly,
 you will need to add <code class="docutils literal notranslate"><span class="pre">'sphinx_automodapi.automodapi'</span></code> to the <code class="docutils literal notranslate"><span class="pre">extensions</span></code>
 variable in your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sphinx_automodapi.automodapi&#39;</span><span class="p">]</span>
@@ -223,6 +249,8 @@ dependencies.</p>
 </section>
 <section id="setting-up-readthedocs">
 <span id="readthedocs"></span><h2>Setting up ReadTheDocs<a class="headerlink" href="#setting-up-readthedocs" title="Link to this heading">¶</a></h2>
+<p><strong>NOTE FOR MEGAN</strong> : isn’t this section out of date?  I thought we
+weren’t going to use readthedocs.</p>
 <p><a class="reference external" href="http://readthedocs.org/">ReadTheDocs</a> is a platform that will build
 documentation with sphinx and will then host it, and is used by many of
 the Scientific Python packages. The easiest way to configure the build
