@@ -24,7 +24,7 @@ from sphinx.ext.autodoc import AttributeDocumenter
 # autodock_mock_imports and/or things_to_mock variable tells Sphinx not
 # to try to import those specific modules.
 
-sys.path.insert( 0, str( pathlib.Path( '..' ).resolve() ) )
+# sys.path.insert( 0, str( pathlib.Path( '..' ).resolve() ) )
 # autodoc_mock_imports = [ 'roman_imsim', roman_imsim.utils ]
 
 # ...unfortunately, while autodoc_mock_imports works the autmodule
@@ -33,10 +33,10 @@ sys.path.insert( 0, str( pathlib.Path( '..' ).resolve() ) )
 #
 # So, instead, we do it manually.  You will need to add mock to
 #   the docs list in [project.optional-dependencies] in pyproject.toml.
-import mock
-things_to_mock = [ 'roman_imsim', 'roman_imsim.utils' ]
-for mod in things_to_mock:
-    sys.modules[ mod ] = mock.MagicMock()
+# import mock
+# things_to_mock = [ 'roman_imsim', 'roman_imsim.utils' ]
+# for mod in things_to_mock:
+#     sys.modules[ mod ] = mock.MagicMock()
 
 
 
