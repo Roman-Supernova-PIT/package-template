@@ -7,8 +7,8 @@
 
     <title>Checklist for creating a PR &#8212; Roman Supernova PIT Python Packaging Guide  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
-    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=b051e2c3" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=5a6b8c39" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=4c948548" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -121,7 +121,7 @@
 <section id="write-tests">
 <h2>Write tests<a class="headerlink" href="#write-tests" title="Link to this heading">¶</a></h2>
 <p>For anything you change are add, make sure to write tests that verify the changed/fixed behavior, and/or that test the new behavior you’ve added; see <a class="reference external" href="testing">Testing your package</a>.</p>
-<p>You probably also want to make sure that you’re tests are set up to run automatically on github; see <a class="reference internal" href="minimal.html#adding-tests-to-github-workflow"><span class="std std-ref">Adding tests to github workflow</span></a>.</p>
+<p>You probably also want to make sure that you’re tests are set up to run automatically on github; see <a class="reference internal" href="index.html#adding-tests-to-github-workflow"><span class="std std-ref">Adding tests to github workflow</span></a>.</p>
 </section>
 <section id="create-the-pr">
 <h2>Create the PR<a class="headerlink" href="#create-the-pr" title="Link to this heading">¶</a></h2>
@@ -176,7 +176,7 @@
 <p>When all is ready, either you or the code reviewer should merge the PR to main.  It’s up to you how you want to merge.  By default, when you merge, all of the various commit messages on your branch will be added to the commit history of main.  This can lead to a long and verbose commit history in the production version of your repo, which may be what you want.  However, if you want a cleaner commit history on the main branch, then <strong>do not just press the big friendly “Merge pull request” button</strong>.  Rather, click the little down arrow, and find the option “Squash and Merge”.  What that will do is remove all of the sundry complicated and perhaps sordid commit messages from your branch, and replace it with a single clean commit message for your PR on the main branch.  Put the text for this single clean commit in the top text box, and then delete everything in the bigger text box.  Finally, push the “Squash and Merge” button.</p>
 </section>
 <section id="after-merging-the-pr-to-main-bump-the-version-if-appropriate">
-<h2>After merging the PR to main — bump the version if appropriate<a class="headerlink" href="#after-merging-the-pr-to-main-bump-the-version-if-appropriate" title="Link to this heading">¶</a></h2>
+<span id="incrementing-version"></span><h2>After merging the PR to main — bump the version if appropriate<a class="headerlink" href="#after-merging-the-pr-to-main-bump-the-version-if-appropriate" title="Link to this heading">¶</a></h2>
 <p>(If you’re nervous about this, talk to one of the pipeline managers (including, but not limited to, Megan and Rob) about what to do.)</p>
 <p>After all code reviews and modifications are done and you have merged to <cite>main</cite>, you most likely will need to bump the version of the software.  This will affect the version that is attached to the software if a pip package is built, for example.</p>
 <p>Figure out what the current version of the package is by running:</p>
@@ -191,6 +191,12 @@
 </pre></div>
 </div>
 <p>That will push the new tag you made to the <cite>main</cite> branch on the github archive.  Thereaftrer, if somebody builds a package from that commit of the git archive, that package will bake into it the version in the tag you just created.</p>
+<p>You can check that the version is right by importing your package (assuming you’ve done a <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> or some such to have the current code tree in your environment) and looking at it’s version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="o">&lt;</span><span class="n">module_name</span><span class="o">&gt;</span>
+<span class="nb">print</span><span class="p">(</span> <span class="o">&lt;</span><span class="n">module_name</span><span class="o">&gt;.</span><span class="n">__version__</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, you should <a class="reference internal" href="releasing.html#releasing"><span class="std std-ref">release your package</span></a> if the package is far along enough that you have it pip installable from PyPI.</p>
 </section>
 </section>
 

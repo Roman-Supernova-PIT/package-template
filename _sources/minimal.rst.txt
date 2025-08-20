@@ -3,6 +3,8 @@
 Minimal package layout
 ======================
 
+This chapter describes a minimal package layout.  If you created your repository using the instructions in :ref:`using-the-template`, then your package will already be as described on this page.  Read this only if you need to modify any of these files and/or want to understand the files that the template has placed in your repository.
+
 To start off, we will take a look at the minimal set of files you will need to
 create an installable Python package. Once you have set these up, your package
 directory should look like::
@@ -23,15 +25,7 @@ these files in turn.
 ``LICENSE``
 -----------
 
-Assuming that you are planning to make your package open source, the most
-important file you will need to add to your package is an open source license.
-Many packages in the scientific Python ecosystem use the `3-clause BSD license
-<https://opensource.org/licenses/BSD-3-Clause>`_ and the packages maintained by
-the Roman Supernova PIT group will too. If you have a good reason not to, please
-contact one of the software admins for the PIT.
-
-The BSD 3-Clause license is included as part of the package template and will
-be created when you generate a new package.
+Assuming that you are planning to make your package open source, the most important file you will need to add to your package is an open source license.  The Roman SNPIT uses 3-clause BSD license (which is used by may packages in the scientific Python echosystem), and that is already in the ``LICENSE`` file imported from the template.  If you have a good reason to want to use a different license, please contact one of the software admins for the PIT.
 
 .. _readme:
 
@@ -108,12 +102,12 @@ The ``name`` field is the name your package will have on PyPI. It is not necessa
 the same as the module name, so in this case we've set the package name to
 ``my-package`` even though the module name is ``my_package``. However, aside from
 the case where the package name has a hyphen and the module name has an underscore,
-we strongly recommend making the package and the module name the same to avoid confusion.
+we recommend making the package and the module name the same to avoid confusion.  Sometimes this is impossible, as a package name may already be used on PyPI, or may otherwise be rejected by PyPI.  A good second option is to add a prefix of ``roman-snpit`` to the ``name`` field of your pckage.  This is done, for example, in the ``snappl`` package (`cf: the snappl pyproject.toml <https://github.com/Roman-Supernova-PIT/snappl/blob/main/pyproject.toml>`_).
 
 Note that the version of the package is **not** explicitly defined in the file above,
 (rather, defined as ``dynamic``), because we are using the
 `setuptools_scm <https://pypi.org/project/setuptools-scm/>`_ package to automatically
-retrieve the latest version from Git tags. 
+retrieve the latest version from Git tags.  See :ref:`releasing` for more information.
 
 The ``description`` should be a short one-line sentence that will appear next to your package name
 on `PyPI <https://pypi.org>`_ when users search for packages. The ``readme``
@@ -243,61 +237,3 @@ So given the files we've seen above you would need to include::
 You can find out more about the syntax of this file in
 `Specifying the files to distribute <https://docs.python.org/3.8/distutils/sourcedist.html#specifying-the-files-to-distribute>`_
 in the Python documentation.
-
-
-Trying out your package
------------------------
-
-Once you have committed all of the above files to your repository, you
-can test out the package by running
-
-.. code-block:: shell
-
-    pip install -e .
-
-from the root of the package. Once you have done this, you should be able to
-start a Python session from a different directory and type e.g.::
-
-    >>> import my_package
-    >>> my_package.__version__
-    0.1.dev1+g25976ae
-
-.. TODO: mention about adding more files to package with functionality
-
-
-Adding your package to github
-------------------------------
-
-TODO: instructions about creating a github archive and all that?  Probably no need to repeat that here, you can find that elsewhere.
-
-When you use the template, the file `.github/CODEOWNERS` will declare that the github group "Roman-Supernova-PIT/software-admins" is one of the owners of your repo.  In PRs, you will notice an error message if this group does not in fact have access to your repo.  So, unless you have a reason not to, give them access.  To do this, go to your repo's main page on github, and click on "Settings" (next to the gear icon) in the header.  Near the top of the left sidebar, find "Collaborations and teams"; click on that.  If you don't already see "software admins" as having access, click "Add teams".  Find "Roman-Supernova-PIT/software-admins" in the list of teams, and click on it.  On the page that comes up, give the software-admins team an appropriate role; given the name, you should probably just go ahead and let that group have the "Admin" role, so that if you go away, we will still be able to fully work with your github archive.  Click "Add Selection" once you've chosen the role.
-
-
-.. _adding-tests-to-github-workflow:
-   
-Adding tests to github workflow
--------------------------------
-
-.. |snpit_utils| replace:: ``snpit_utils``
-.. _snpit_utils: https://github.com/Roman-Supernova-PIT/snpit_utils
-.. |snpit_utils/tests| replace:: ``snpit_utils/tests``
-.. _snpit_utils/tests: https://github.com/Roman-Supernova-PIT/snpit_utils/tree/main/snpit_utils/tests
-.. |snpit_utils/.github/workflows| replace:: ``snipit_utils/.github/workflows``
-.. _snpit_utils/.github/workflows: https://github.com/Roman-Supernova-PIT/snpit_utils/tree/main/.github/workflows
-
-If you want the tests in ``<package_name>/tests`` to automatically run on pull requests, you can add a file to `.github/workflows` that defines these tests.  If needed, contact one of the pipeline managers (including, but not limited to, Megan and Rob) for help with this.We recommend that you write the workflow to run tests within the `SN PIT environment <https://github.com/Roman-Supernova-PIT/environment>`_.
-
-You can find an example in the |snpit_utils|_ repository.  There, look in the |snpit_utils/tests|_ subdirectory.  The files ``test_config.py`` and ``test_logger.py`` (at least) were written to test code in this repo.  The file ``docker-compose.py`` sets up a standard ``snpit`` docker environment to run the tests.  You may be able to adapt this ``docker-compose.py`` file, changing only the directory names (which may be as simple as replacing ``snpit_utils`` with the directory names for your repo).
-
-If you have a working ``docker-compose.py`` file in the ``tests`` directory of your repo, in that directory try running::
-
-  docker compose run runtests
-
-After a delay to pull down the ``snpit`` docker image, if you don't already have it on your system, you will see if your tests pass or fail... or if the whole process fails to run.  After you run your tests, clean up your system with::
-
-  docker compose down -v
-
-Once this is working, you need to add the actual github workflow file.  You can find an example of this file in the
-|snpit_utils/.github/workflows|_ subdirectory of the ``snpit_utils`` package.  Look at the file ``run_snpit_utils.tests.yml``.  Once again, it's possible that you can adapt this to your project by simply finding all instances of ``snpit_utils`` and replacing it with your module name.
-
-If you need help with the docker compose file, or with the github workflow file for running your tests in the snpit docker image, talk to Rob, who wrote these things for ``snpit_utils``.
