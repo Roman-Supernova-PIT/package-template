@@ -92,6 +92,7 @@ Merge the PR
 
 When all is ready, either you or the code reviewer should merge the PR to main.  It's up to you how you want to merge.  By default, when you merge, all of the various commit messages on your branch will be added to the commit history of main.  This can lead to a long and verbose commit history in the production version of your repo, which may be what you want.  However, if you want a cleaner commit history on the main branch, then **do not just press the big friendly "Merge pull request" button**.  Rather, click the little down arrow, and find the option "Squash and Merge".  What that will do is remove all of the sundry complicated and perhaps sordid commit messages from your branch, and replace it with a single clean commit message for your PR on the main branch.  Put the text for this single clean commit in the top text box, and then delete everything in the bigger text box.  Finally, push the "Squash and Merge" button.
 
+.. _incrementing-version:
 
 After merging the PR to main — bump the version if appropriate
 ==============================================================
@@ -112,3 +113,10 @@ That will list the tags that are currently defined for the repo.  Find the ones 
   git push origin --tags
 
 That will push the new tag you made to the `main` branch on the github archive.  Thereaftrer, if somebody builds a package from that commit of the git archive, that package will bake into it the version in the tag you just created.
+
+You can check that the version is right by importing your package (assuming you've done a ``pip install -e .`` or some such to have the current code tree in your environment) and looking at it's version::
+
+  import <module_name>
+  print( <module_name>.__version__ )
+
+Finally, you should :ref:`release your package <releasing>` if the package is far along enough that you have it pip installable from PyPI.
