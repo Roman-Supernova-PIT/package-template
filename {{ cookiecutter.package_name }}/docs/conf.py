@@ -25,7 +25,7 @@ from sphinx.ext.autodoc import AttributeDocumenter
 # to try to import those specific modules.
 
 # sys.path.insert( 0, str( pathlib.Path( '..' ).resolve() ) )
-# autodoc_mock_imports = [ 'roman_imsim', roman_imsim.utils ]
+# autodoc_mock_imports = [ 'roman_imsim' ]
 
 # ...unfortunately, while autodoc_mock_imports works the autmodule
 #    directive, it does not work with the automodapi directive.  See
