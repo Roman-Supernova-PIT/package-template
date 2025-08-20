@@ -5,46 +5,11 @@ Releasing Your Package
 
 In this section we will describe how to take your package and publish a release to PyPI.
 
-There are a lot of permutations on how to release your package, and depending on
-the size of your project you may need to build on this guide. The objective of
-this is to provide you with the basic information you need to release something
-built by following the rest of this guide.
-
-This section of the guide is assuming you configured `setuptools_scm
-<https://pypi.org/project/setuptools-scm/>`__ in the :ref:`minimal` guide. If
-you didn't you will need to update your ``pyproject.toml`` file as well as using
-``git tag``.
-
 Incrementing Version Numbers
 ----------------------------
 
-When you are ready to release your package you need to give it a version number.
-A version number for a release should generally be of the form ``X.Y.Z``, for
-full details on versioning Python packages see `PEP 440
-<https://www.python.org/dev/peps/pep-0440/>`__. What meaning is conveyed by the
-version numbers is up to you, there are multiple different thoughts on this, for
-some examples see `Astropy
-<https://github.com/astropy/astropy-APEs/blob/master/APE2.rst>`__, `SunPy
-<https://github.com/sunpy/sunpy-SEP/blob/master/SEP-0009.md>`__ or `Semantic
-Versioning <https://semver.org/>`__.
+See :ref:`incrementing-version` in the :ref:`checklist` for information on specifying the version number of the package you want to relese.
 
-In this example we are going to release version ``0.1.0`` of our package
-``my_package``. When doing releases it is common practice to use `git tags
-<https://git-scm.com/book/en/v2/Git-Basics-Tagging>`__ to identify the commit
-the release relates to in the history. By using ``setuptools_scm`` these tags
-become the reference for the version numbers of your Python package. This means
-you only have to increment your version number using git.
-
-To mark a new release of your package in your git history run:
-
-.. code-block:: console
-
-   $ git tag -a v0.1.0 -m "Release version 0.1.0"
-
-Here we use the convention of prepending release tags with ``v``.
-
-If you now import your package and print ``my_package.__version__`` it should say
-``0.1.0``.
 
 Building Source Distributions
 -----------------------------
@@ -87,6 +52,8 @@ on PyPI if it doesn't already exist.
 
 Releasing from Branches
 -----------------------
+
+WARNING : this section is probably not correct for the SNPIT.  Review it before using it.
 
 If your project is larger, you might want to create branches for each of your
 major release versions to make it easy to continue to support those releases

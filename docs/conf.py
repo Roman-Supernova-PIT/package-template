@@ -65,5 +65,7 @@ html_theme_options = {
     'logo': "logo_black_filled.png",
     'logo_text_align': "left",
     'sidebar_width':'250px',
+    'page_width':'75%',
+    'body_max_width':'120ex',
     'show_relbars':True,
 }
