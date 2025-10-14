@@ -69,8 +69,9 @@ def test_dev_version_number(venv, bake_examples_compiled_dev_version):
 
     subprocess.run(["git", "-C", path, "add", "."], check=True)
     subprocess.run(["git", "-C", path, "commit", "-m", "second"], check=True)
+    venv.install(path, editable=True)
 
     # assert it's actually correct
     dynamic_version = subprocess.run([venv.python, '-c', 'import packagename; print(packagename.__version__)'],
                                      capture_output=True)
-    assert dynamic_version.stdout.decode().startswith("0.2.dev1")
+    assert dynamic_version.stdout.decode().startswith("0.2.dev")

@@ -54,6 +54,10 @@ def _handle_cookiecutter_errors(result):
 def bake_default(cookies):
     """
     Render with the defaults.
+
+    cookies is provided with pytest-cookies
+    cookies.bake() renders the project with the provided template
+    based on the values in cookiecutter.json
     """
     result = cookies.bake()
     return _handle_cookiecutter_errors(result)
@@ -89,3 +93,4 @@ def bake_examples_compiled_dev_version(cookies):
                                          "use_compiled_extensions": "y",
                                          "author_name": "test"})
     return _handle_cookiecutter_errors(result)
+

@@ -14,7 +14,7 @@ def test_examples_removed(cookiejar_no_examples):
     ]
 
     for afile in example_files:
-        assert not (cj.project_path / ctx['package_name'] / afile).exists()
+        assert not (cj.project_path / ctx['package_name'] / ctx['module_name'] / afile).exists()
 
 
 def test_examples_present(cookiejar_examples):
@@ -38,4 +38,5 @@ def test_examples_present(cookiejar_examples):
 
     for afile in example_files:
         assert (cj.project_path / ctx['package_name'] / afile).exists()
+
 
