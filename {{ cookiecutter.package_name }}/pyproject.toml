@@ -27,7 +27,7 @@ dependencies = [
 ]
 license-files = ["LICENSE"]
 {% elif cookiecutter.author_name %}
-    maintainer = [{ name = "{{ cookiecutter.author_name }}"}]
+    maintainers = [{ name = "{{ cookiecutter.author_name }}"}]
 {% endif %}
 
 [project.readme]
