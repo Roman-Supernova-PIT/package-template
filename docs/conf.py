@@ -62,7 +62,7 @@ html_theme_options = {
     "github_user": "",
     "github_repo": "package-template",
     'fixed_sidebar': True,
-    'logo': "logo_black_filled.png",
+    'logo': "logo_black_filled_sm.png",
     'logo_text_align': "left",
     'sidebar_width':'250px',
     'page_width':'75%',
