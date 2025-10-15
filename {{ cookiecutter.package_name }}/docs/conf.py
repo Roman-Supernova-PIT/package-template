@@ -42,7 +42,7 @@ from sphinx.ext.autodoc import AttributeDocumenter
 
 # -- Project information -----------------------------------------------------
 
-# to populate metadata from the pyproject.toml file so that changes are picked 
+# to populate metadata from the pyproject.toml file so that changes are picked
 # up for things in the project section of the toml
 with open("../pyproject.toml", "rb") as metadata_file:
     pyptoml = tomli.load( metadata_file )
@@ -134,7 +134,7 @@ html_sidebars = {
 }
 html_theme_options = {
     'fixed_sidebar': True,
-    'logo': "logo_black_filled.png",
+    'logo': "logo_black_filled_sm.png",
     'logo_text_align': "left",
     'description': "Software developed by the Roman SNPIT",
     'sidebar_width':'250px',
