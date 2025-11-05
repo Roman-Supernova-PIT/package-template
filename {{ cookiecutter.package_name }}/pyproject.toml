@@ -58,6 +58,10 @@ docs = [
     "tomli",
     "graphviz"
 ]
+dev = [
+  "ruff", 
+  "pre-commit"
+]
 
 {% if cookiecutter._project_url %}
 [project.urls]

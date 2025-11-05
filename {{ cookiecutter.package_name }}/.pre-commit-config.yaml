@@ -14,3 +14,11 @@ repos:
         exclude: "{{ cookiecutter.package_name }}"
       - id: debug-statements
         exclude: "{{ cookiecutter.package_name }}"
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.3
+    hooks:
+      - id: ruff-check
+        types_or: [ python, pyi ]
+        args: [ --fix ]
+      - id: ruff-format
+        types_or: [ python, pyi ]
