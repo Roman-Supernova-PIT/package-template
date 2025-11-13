@@ -19,6 +19,8 @@ repos:
     hooks:
       - id: ruff-check
         types_or: [ python, pyi ]
+{%- if cookiecutter.autoformat_code == 'y' %}
         args: [ --fix ]
+{%- endif %}
       - id: ruff-format
         types_or: [ python, pyi ]

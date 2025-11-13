@@ -30,6 +30,7 @@ It will ask you several questions:
 * *include example code* : This option will fill your new package with some example functions to allow you to test it.  It defaults to 'y'.  Remember to remove the example code later if you don't really want it to be part of your package.
 * *Include github workflow testing...* : Answer 'y' (the default) to include github workflows that will instruct github to automatically run tests on any pull request to your repo.  You probably want to leave this at 'y'.
 * *install_requires* : Here you can list additional external packages that your package requires.  Don't worry if you miss some here, you will be able to add to that list later by editing a file the package template creates.
+* *autoformat_code* : Select 'y' to have pre-commit automatically fix formatting issues in your code.
 
 Cruft is built on cookiecutter, and enables the updating of the template from the source.
 This takes the form of pull requests to the repository that the new package is pushed to.
