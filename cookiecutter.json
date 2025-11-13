@@ -14,6 +14,7 @@
     "use_compiled_extensions": "n",
     "include_example_code": "y",
     "include_github_workflows": "y",
+    "autoformat_code": "n",
     "_project_url": "https://github.com/Roman-Supernova-PIT",
     "_pit_github_org": "Roman-Supernova-PIT",
     "_pit_name": "Roman Supernova Project Infrastructure Team",
@@ -35,6 +36,7 @@
         "full_name": "Author full name, this will be the primary maintainer",
         "email": "Author email",
         "use_compiled_extensions": "Return (y) if you have non-python code that compiles",
-        "include_github_workflows": "Include github workflow testing code for your github repo"
+        "include_github_workflows": "Include github workflow testing code for your github repo",
+        "autoformat_code": "Return (y) to allow pre-commit to fix code formatting issues"
     }
 }
