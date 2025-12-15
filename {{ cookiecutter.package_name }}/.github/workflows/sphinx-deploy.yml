@@ -13,7 +13,7 @@ jobs:
       contents: write
     steps:
     - id: deployment
-      uses: sphinx-notes/pages@23ef64097ef9b00d8f71e978bc518ee32ca98651  # v3.2
+      uses: sphinx-notes/pages@e9c8f79f285fb41a150ba6e08a3c2a29635e7ee1  # v3.5
       with:
         publish: false
         documentation_path: ./docs
